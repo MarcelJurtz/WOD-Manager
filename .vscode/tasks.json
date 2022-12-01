@@ -1,0 +1,9 @@
+{
+    "label": "php-server",
+    "type": "shell",
+    "command": "php -S localhost:8000",
+    "group": {
+        "kind": "build",
+        "isDefault": true
+    }
+}

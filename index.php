@@ -24,8 +24,18 @@
     }
 
     $wod_index = rand(0, count($data));
-    $permalink  = $data[$wod_index]['permalink'];
-    $wod = strtoupper($data[$wod_index]['name']);
+    // $permalink  = $data[$wod_index]['permalink'];
+    // $wod = strtoupper($data[$wod_index]['name']);
+    $wod = $data[$wod_index];
+
+    $permalink = $wod["permalink"];
+    $excercises = implode("\n",$wod["excercises"]);
+    $instructions = $wod["description"];
+
+    $hashtags = "#test #wasd #abcdefu";
+    $prefix = "";
+    $suffix = "Follow @Wodai.ly on Instagram for more workouts!\n\n";
+
     $params = '?wod=' . $permalink;
     $img_url = 'image.php' . $params;
   ?>
@@ -44,7 +54,7 @@
         </label>
       <div class="form-group my-3">
         <textarea id="details" class="form-control" rows="12">
-          <?php echo $wod . " - TODO DESCRIPTION - TODO LINEBREAKS - TODO DEFAULT HASHTAGS"; ?>
+          <?php echo $prefix . $instructions . ":\n\n" . $excercises . "\n\n" . $suffix . $hashtags ?>
         </textarea>
       </div>
       <a href="image.php<?php echo $params; ?>" class="btn btn-primary">Download <i class="fa-regular fa-download"></i></a> 
