@@ -63,13 +63,12 @@
           </a>
         </label>
       <div class="form-group my-3">
-        <textarea id="details" class="form-control" rows="12" data-permalink="<?php echo $permalink ?>">
+        <textarea id="details" class="form-control" rows="8" data-permalink="<?php echo $permalink ?>">
           <?php echo $prefix . $instructions . ":\n\n" . $excercises . "\n\n" . $suffix . $hashtags . "\n\n" . $src ?>
         </textarea>
       </div>
-      <a href="image.php<?php echo $params; ?>" class="btn btn-primary">Download <i class="fa-regular fa-download"></i></a> 
-      <button class="btn btn-outline-light" id="get-random">Another, please <i class="fa-regular fa-rotate-right"></i></button>
-      <button class="btn btn-outline-light" id="replace-bg">Replace BG<i class="fa-regular fa-rotate-right"></i></button>
+      <button class="btn btn-primary" id="get-random">Other WOD</button>
+      <button class="btn btn-outline-light" id="replace-bg">Replace BG</button>
     </div>
   </div>
   <div class="container my-2 small text-center" style="max-width:450px;">
