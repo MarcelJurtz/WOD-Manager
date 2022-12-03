@@ -23,10 +23,17 @@
       // TODO
     }
 
-    $wod_index = rand(0, count($data));
-    // $permalink  = $data[$wod_index]['permalink'];
-    // $wod = strtoupper($data[$wod_index]['name']);
-    $wod = $data[$wod_index];
+    $wod = false;
+
+    // Use supplied wod if available, else random
+    if(isset($_GET['wod'])) {
+      $wod = findObjectById($data, $_GET["wod"]);
+    }
+
+    if(!$wod) {
+      $wod_index = rand(0, count($data));
+      $wod = $data[$wod_index];
+    }
 
     $permalink = $wod["permalink"];
     $excercises = implode("\n",$wod["excercises"]);
@@ -38,6 +45,17 @@
 
     $params = '?wod=' . $permalink;
     $img_url = 'image.php' . $params;
+
+    function findObjectById($array, $permalink)
+    {
+        foreach ($array as $element) {
+            if ($permalink == $element["permalink"]) {
+                return $element;
+            }
+        }
+
+        return false;
+    }
   ?>
 
   <div class="card mx-auto my-1 border-0 shadow-lg" style="width: 450px; background:#000;">
@@ -53,12 +71,13 @@
           </a>
         </label>
       <div class="form-group my-3">
-        <textarea id="details" class="form-control" rows="12">
+        <textarea id="details" class="form-control" rows="12" data-permalink="<?php echo $permalink ?>">
           <?php echo $prefix . $instructions . ":\n\n" . $excercises . "\n\n" . $suffix . $hashtags ?>
         </textarea>
       </div>
       <a href="image.php<?php echo $params; ?>" class="btn btn-primary">Download <i class="fa-regular fa-download"></i></a> 
-      <button class="btn btn-outline-light" onClick="window.location.reload();">Another, please <i class="fa-regular fa-rotate-right"></i></button>
+      <button class="btn btn-outline-light" id="get-random">Another, please <i class="fa-regular fa-rotate-right"></i></button>
+      <button class="btn btn-outline-light" id="replace-bg">Replace BG<i class="fa-regular fa-rotate-right"></i></button>
     </div>
   </div>
   <div class="container my-2 small text-center" style="max-width:450px;">

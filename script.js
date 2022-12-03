@@ -8,6 +8,9 @@
 let details = document.getElementById("details");
 let btnCopy = document.getElementById("copy");
 
+let btnChangeBg = document.getElementById("replace-bg");
+let btnGetRandom = document.getElementById("get-random");
+
 details.textContent = details.textContent.trim();
 
 btnCopy.addEventListener('click', function(event) {
@@ -19,4 +22,15 @@ btnCopy.addEventListener('click', function(event) {
     }, function(err) {
         console.error('Async: Could not copy text: ', err);
     });
+});
+
+btnChangeBg.addEventListener('click', function() {
+
+    // Add query param if it isn't set already
+    let permalink = document.getElementById("details").dataset.permalink;
+    window.location = window.location.href.split('?')[0] + "?wod=" + permalink;
+});
+
+btnGetRandom.addEventListener('click', function() {
+    window.location = window.location.href.split('?')[0];
 });
