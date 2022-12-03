@@ -52,15 +52,21 @@ $img = darken($img);
 
 $white = imagecolorallocate($img, 255, 255, 255);
 
-$myCanvasWidth  = imagesx($img);
-$myCanvasHeight = imagesy($img);
+$w  = imagesx($img);
+$h = imagesy($img);
 
 $fontSize = 16;
 
+$descriptionPosY = 250;
+$excercisesPosY = 400;
+$brandingPosY = $h - 100;
+$padding = 0.1;
+$excercisesMaxHeight = $brandingPosY - $excercisesPosY;
+
 // Configs for variable font sizes
-tryWrite($img, 150, 0.1, 0.3, array(56, 48, 42, 36, 32, 28, 24, 20, 16, 12, 8), $font, $description, $white);
-tryWrite($img, 300, 0.1, 0.3, array(48, 42, 36, 28, 24, 20, 16, 12, 8), $font, $excercises, $white);
-tryWrite($img, 930, 0.1, 0.3, array(26), $font, $user, $white);
+tryWrite($img, $descriptionPosY, $padding, $padding, array(56, 48, 42, 36, 32, 28, 24, 20, 16, 12, 8), $font, $description, $white);
+tryWrite($img, $excercisesPosY, $padding, $padding, array(48, 42, 36, 28, 24, 20, 16, 12, 8), $font, $excercises, $white, $excercisesMaxHeight);
+tryWrite($img, $brandingPosY, $padding, $padding, array(26), $font, $user, $white);
 
 header('Content-Type: image/png');
 header('Content-Disposition: Attachment;filename="Wodaily - ' . $title . '.png"');
@@ -69,7 +75,7 @@ imagepng($img);
 imagedestroy($img);
 
 
-function tryWrite($img, $offset, $padX, $padY, $fontsizes, $font, $text, $color)
+function tryWrite($img, $offset, $padX, $padY, $fontsizes, $font, $text, $color, $maxHeight = -1)
 {
     $angle = 0;
     $maxAttempts = sizeof($fontsizes);
@@ -97,7 +103,12 @@ function tryWrite($img, $offset, $padX, $padY, $fontsizes, $font, $text, $color)
         $textWidth  =  $lower_right_x - $lower_left_x;
         $textHeight = $lower_right_y - $upper_right_y;
 
-        if ($textWidth <= $width - $padX * 2 && $textHeight <= $height - $padY * 2) {
+        // Verify accepted bounds
+        // - Text can't intercept general paddings (horizontal / vertical)
+        // - Text also can't intercept textareas above / below itself
+        $intersectsText = $maxHeight > 0 && $textHeight > $maxHeight;
+
+        if (!$intersectsText && $textWidth <= $width - $width * $padX * 2 && $textHeight <= $height - $height * $padY * 2) {
 
             // Center text horizontally and vertically (+ vertical offset)
             $start_x_offset = ($width - $textWidth) / 2;
