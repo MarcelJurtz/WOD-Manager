@@ -41,9 +41,10 @@
     $excercises = implode("\n",$wod["excercises"]);
     $instructions = $wod["description"];
 
-    $hashtags = "#test #wasd #abcdefu";
+    $hashtags = getHashtagString($wod["keywords"]) . ' ' . getRandomDefaultHashtags();
     $prefix = "";
     $suffix = "Follow @Wodai.ly on Instagram for more workouts!\n\n";
+    $src = "Background-images are from unsplash.com";
 
     $params = '?wod=' . $permalink;
     $img_url = 'image.php' . $params;
@@ -63,7 +64,7 @@
         </label>
       <div class="form-group my-3">
         <textarea id="details" class="form-control" rows="12" data-permalink="<?php echo $permalink ?>">
-          <?php echo $prefix . $instructions . ":\n\n" . $excercises . "\n\n" . $suffix . $hashtags ?>
+          <?php echo $prefix . $instructions . ":\n\n" . $excercises . "\n\n" . $suffix . $hashtags . "\n\n" . $src ?>
         </textarea>
       </div>
       <a href="image.php<?php echo $params; ?>" class="btn btn-primary">Download <i class="fa-regular fa-download"></i></a> 

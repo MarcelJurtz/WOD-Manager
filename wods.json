@@ -1,4 +1,5 @@
-[{
+[
+    {
         "name": "Dallas 5",
         "description": "For Time",
         "excercises": [
@@ -10,6 +11,11 @@
         ],
         "equipment": [
             "track"
+        ],
+        "keywords": [
+            "Running",
+            "Push-Ups",
+            "Sit-Ups"
         ],
         "tag": "",
         "permalink": "8433C33C"
@@ -23,6 +29,7 @@
             "8 Sit-Ups"
         ],
         "equipment": [],
+        "keywords": [],
         "tag": "",
         "permalink": "B59B4F8D"
     },
@@ -38,6 +45,7 @@
         "equipment": [
             "pullupbar"
         ],
+        "keywords": [],
         "tag": "Benchmark-WOD",
         "permalink": "E5100878"
     },
@@ -53,6 +61,7 @@
         "equipment": [
             "pullupbar"
         ],
+        "keywords": [],
         "tag": "Benchmark-WOD",
         "permalink": "7DE6D61B"
     },
@@ -67,6 +76,7 @@
         "equipment": [
             "pullupbar"
         ],
+        "keywords": [],
         "tag": "Benchmark-WOD",
         "permalink": "CBAB942A"
     },
@@ -81,6 +91,7 @@
         "equipment": [
             "pullupbar"
         ],
+        "keywords": [],
         "tag": "Benchmark-WOD",
         "permalink": "66F51EFA"
     },
@@ -94,6 +105,7 @@
         "equipment": [
             "barbell"
         ],
+        "keywords": [],
         "tag": "Benchmark-WOD",
         "permalink": "ECB15017"
     },
@@ -108,6 +120,7 @@
             "barbell",
             "rings"
         ],
+        "keywords": [],
         "tag": "Benchmark-WOD",
         "permalink": "DECA7536"
     },
@@ -122,6 +135,7 @@
             "barbell",
             "pullupbar"
         ],
+        "keywords": [],
         "tag": "Benchmark-WOD",
         "permalink": "EDE3D2D7"
     },
@@ -134,6 +148,7 @@
         "equipment": [
             "barbell"
         ],
+        "keywords": [],
         "tag": "Benchmark-WOD",
         "permalink": "84F9A6CE"
     },
@@ -142,7 +157,7 @@
         "description": "3 Rounds for Time",
         "excercises": [
             "400m Run",
-            "21 Kettlebell Swings (1.5 pood)",
+            "21 KB-Swings",
             "12 Pull-Ups"
         ],
         "equipment": [
@@ -150,8 +165,9 @@
             "kettlebell",
             "track"
         ],
+        "keywords": [],
         "tag": "Benchmark-WOD",
-        "permalink": "A2BAE35D"
+        "permalink": "8A05B6BF"
     },
     {
         "name": "Isabel",
@@ -162,6 +178,7 @@
         "equipment": [
             "barbell"
         ],
+        "keywords": [],
         "tag": "Benchmark-WOD",
         "permalink": "1B590762"
     },
@@ -178,6 +195,7 @@
             "barbell",
             "pullupbar"
         ],
+        "keywords": [],
         "tag": "Benchmark-WOD",
         "permalink": "848B1DA4"
     },
@@ -190,6 +208,7 @@
         "equipment": [
             "wallball"
         ],
+        "keywords": [],
         "tag": "Benchmark-WOD",
         "permalink": "EC1B4E3F"
     },
@@ -205,6 +224,7 @@
             "barbell",
             "bench"
         ],
+        "keywords": [],
         "tag": "Benchmark-WOD",
         "permalink": "812B9278"
     },
@@ -219,6 +239,7 @@
         "equipment": [
             "pullupbar"
         ],
+        "keywords": [],
         "tag": "Benchmark-WOD",
         "permalink": "D60A16D0"
     },
@@ -233,6 +254,7 @@
             "barbell",
             "track"
         ],
+        "keywords": [],
         "tag": "Benchmark-WOD",
         "permalink": "620F7DD0"
     },
@@ -246,6 +268,7 @@
         "equipment": [
             "skippingrope"
         ],
+        "keywords": [],
         "tag": "Benchmark-WOD",
         "permalink": "5A0B915A"
     },
@@ -262,6 +285,7 @@
             "pullupbar",
             "track"
         ],
+        "keywords": [],
         "tag": "Benchmark-WOD",
         "permalink": "6C690E0F"
     },
@@ -278,6 +302,7 @@
             "wallball",
             "track"
         ],
+        "keywords": [],
         "tag": "Benchmark-WOD",
         "permalink": "7F709484"
     },
@@ -293,6 +318,7 @@
             "bench",
             "pullupbar"
         ],
+        "keywords": [],
         "tag": "Benchmark-WOD",
         "permalink": "F8EF1794"
     },
@@ -307,6 +333,7 @@
             "pullupbar",
             "track"
         ],
+        "keywords": [],
         "tag": "Benchmark-WOD",
         "permalink": "EAD2409B"
     },
@@ -330,6 +357,7 @@
         "equipment": [
             "rower"
         ],
+        "keywords": [],
         "tag": "",
         "permalink": "85CC8FDA"
     },
@@ -344,6 +372,7 @@
         "equipment": [
             "rower"
         ],
+        "keywords": [],
         "tag": "",
         "permalink": "C2868C29"
     },
@@ -360,6 +389,7 @@
             "rower",
             "pullupbar"
         ],
+        "keywords": [],
         "tag": "",
         "permalink": "FFD615DD"
     },
@@ -376,6 +406,7 @@
             "barbell",
             "rower"
         ],
+        "keywords": [],
         "tag": "Benchmark-WOD",
         "permalink": "A13BF085"
     },
@@ -390,6 +421,7 @@
             "rower",
             "barbell"
         ],
+        "keywords": [],
         "tag": "",
         "permalink": "281C4883"
     },
@@ -404,6 +436,7 @@
             "rower",
             "pool"
         ],
+        "keywords": [],
         "tag": "",
         "permalink": "CC3C64AE"
     },
@@ -426,6 +459,7 @@
             "boxjump",
             "wallball"
         ],
+        "keywords": [],
         "tag": "",
         "permalink": "F46B8E9F"
     },
@@ -439,6 +473,7 @@
         "equipment": [
             "rower"
         ],
+        "keywords": [],
         "tag": "",
         "permalink": "B94D5B62"
     },
@@ -451,6 +486,7 @@
         "equipment": [
             "rower"
         ],
+        "keywords": [],
         "tag": "",
         "permalink": "2435C83B"
     },
@@ -465,6 +501,7 @@
             "rower",
             "barbell"
         ],
+        "keywords": [],
         "tag": "",
         "permalink": "AB4890E4"
     },
@@ -479,6 +516,7 @@
             "rower",
             "track"
         ],
+        "keywords": [],
         "tag": "",
         "permalink": "4732F99F"
     },
@@ -494,6 +532,7 @@
         "equipment": [
             "rower"
         ],
+        "keywords": [],
         "tag": "",
         "permalink": "2C911C45"
     },
@@ -506,6 +545,7 @@
         "equipment": [
             "rower"
         ],
+        "keywords": [],
         "tag": "",
         "permalink": "3FD21000"
     },
@@ -519,6 +559,7 @@
         "equipment": [
             "rower"
         ],
+        "keywords": [],
         "tag": "",
         "permalink": "1915D8AA"
     },
@@ -533,6 +574,7 @@
         "equipment": [
             "rower"
         ],
+        "keywords": [],
         "tag": "",
         "permalink": "7F9394B9"
     },
@@ -549,6 +591,7 @@
             "rower",
             "skippingrope"
         ],
+        "keywords": [],
         "tag": "",
         "permalink": "141E46CD"
     },
@@ -564,6 +607,7 @@
             "rower",
             "barbell"
         ],
+        "keywords": [],
         "tag": "",
         "permalink": "99390C1C"
     },
@@ -578,6 +622,7 @@
             "rower",
             "airbike"
         ],
+        "keywords": [],
         "tag": "",
         "permalink": "1E11AC80"
     },
@@ -594,6 +639,7 @@
             "airbike",
             "track"
         ],
+        "keywords": [],
         "tag": "",
         "permalink": "34EA265A"
     },
@@ -612,6 +658,7 @@
             "rower",
             "kettlebell"
         ],
+        "keywords": [],
         "tag": "",
         "permalink": "615E9C38"
     },
@@ -627,6 +674,7 @@
             "rower",
             "kettlebell"
         ],
+        "keywords": [],
         "tag": "",
         "permalink": "8AAEA828"
     },
@@ -642,6 +690,7 @@
             "rower",
             "kettlebell"
         ],
+        "keywords": [],
         "tag": "",
         "permalink": "ADBC06ED"
     },
@@ -656,6 +705,7 @@
             "rower",
             "barbell"
         ],
+        "keywords": [],
         "tag": "",
         "permalink": "B3A26494"
     },
@@ -670,6 +720,7 @@
             "rower",
             "barbell"
         ],
+        "keywords": [],
         "tag": "",
         "permalink": "5A3DF89D"
     },
@@ -680,6 +731,7 @@
             "Burpees"
         ],
         "equipment": [],
+        "keywords": [],
         "tag": "Getting Started",
         "permalink": "0608F0F0"
     },
@@ -698,6 +750,7 @@
             "pullupbar",
             "track"
         ],
+        "keywords": [],
         "tag": "Getting Started",
         "permalink": "5EB43156"
     },
@@ -713,6 +766,7 @@
             "pullupbar",
             "track"
         ],
+        "keywords": [],
         "tag": "Getting Started",
         "permalink": "7C9C6480"
     },
@@ -727,6 +781,7 @@
             "boxjump",
             "kettlebell"
         ],
+        "keywords": [],
         "tag": "Getting Started",
         "permalink": "3E0BB090"
     },
@@ -743,6 +798,7 @@
             "kettlebell",
             "rings"
         ],
+        "keywords": [],
         "tag": "Getting Started",
         "permalink": "575FABB8"
     },
@@ -762,6 +818,7 @@
             "dumbbell",
             "skippingrope"
         ],
+        "keywords": [],
         "tag": "",
         "permalink": "555406D7"
     },
@@ -777,6 +834,7 @@
         "equipment": [
             "track"
         ],
+        "keywords": [],
         "tag": "Home-WOD",
         "permalink": "D352A799"
     },
@@ -787,6 +845,7 @@
             "300 Air Squats"
         ],
         "equipment": [],
+        "keywords": [],
         "tag": "Home-WOD",
         "permalink": "49FC4BDA"
     },
@@ -801,6 +860,7 @@
         "equipment": [
             "track"
         ],
+        "keywords": [],
         "tag": "Home-WOD",
         "permalink": "15F5CE11"
     },
@@ -814,6 +874,7 @@
             "10 Air Squats"
         ],
         "equipment": [],
+        "keywords": [],
         "tag": "Home-WOD",
         "permalink": "E9595427"
     },
@@ -832,6 +893,7 @@
         "equipment": [
             "track"
         ],
+        "keywords": [],
         "tag": "Home-WOD",
         "permalink": "C03E72CA"
     },
@@ -847,6 +909,7 @@
         "equipment": [
             "track"
         ],
+        "keywords": [],
         "tag": "Home-WOD",
         "permalink": "51813EC5"
     },
@@ -858,6 +921,7 @@
             "30sec Rest"
         ],
         "equipment": [],
+        "keywords": [],
         "tag": "Home-WOD",
         "permalink": "71BD8586"
     },
@@ -872,6 +936,7 @@
             "2min Air Squats"
         ],
         "equipment": [],
+        "keywords": [],
         "tag": "Home-WOD",
         "permalink": "B8905DD9"
     },
@@ -882,6 +947,7 @@
             "800m Burpee Broad Jumps"
         ],
         "equipment": [],
+        "keywords": [],
         "tag": "Home-WOD",
         "permalink": "3B561911"
     },
@@ -894,6 +960,7 @@
             "Air Squats"
         ],
         "equipment": [],
+        "keywords": [],
         "tag": "Home-WOD",
         "permalink": "F3BF0E2E"
     },
@@ -911,6 +978,7 @@
             "50 Burpees"
         ],
         "equipment": [],
+        "keywords": [],
         "tag": "Home-WOD",
         "permalink": "87C41E3A"
     },
@@ -923,6 +991,7 @@
         "equipment": [
             "track"
         ],
+        "keywords": [],
         "tag": "Home-WOD",
         "permalink": "1CCB2758"
     },
@@ -938,6 +1007,7 @@
         "equipment": [
             "track"
         ],
+        "keywords": [],
         "tag": "Home-WOD",
         "permalink": "5ED7C40D"
     },
@@ -952,6 +1022,7 @@
             "1min. Rest"
         ],
         "equipment": [],
+        "keywords": [],
         "tag": "Home-WOD",
         "permalink": "602CB700"
     },
@@ -971,6 +1042,7 @@
         "equipment": [
             "skippingrope"
         ],
+        "keywords": [],
         "tag": "Home-WOD",
         "permalink": "EFD9A6ED"
     },
@@ -989,6 +1061,7 @@
         "equipment": [
             "track"
         ],
+        "keywords": [],
         "tag": "Home-WOD",
         "permalink": "3F4E08ED"
     },
@@ -1007,6 +1080,7 @@
             "kettlebell",
             "rower"
         ],
+        "keywords": [],
         "tag": "",
         "permalink": "35161D09"
     },
@@ -1020,6 +1094,7 @@
         "equipment": [
             "rower"
         ],
+        "keywords": [],
         "tag": "",
         "permalink": "9686DF75"
     },
@@ -1033,6 +1108,7 @@
             "20 Lunges (10 each leg)"
         ],
         "equipment": [],
+        "keywords": [],
         "tag": "",
         "permalink": "406895D4"
     },
@@ -1046,6 +1122,7 @@
         "equipment": [
             "kettlebell"
         ],
+        "keywords": [],
         "tag": "",
         "permalink": "B59D0D5E"
     },
@@ -1059,6 +1136,7 @@
         "equipment": [
             "rower"
         ],
+        "keywords": [],
         "tag": "",
         "permalink": "4831CF9F"
     },
@@ -1073,6 +1151,7 @@
             "rower",
             "barbell"
         ],
+        "keywords": [],
         "tag": "2015 CrossFit Games Open",
         "permalink": "301E0264"
     },
@@ -1090,6 +1169,7 @@
             "rower",
             "barbell"
         ],
+        "keywords": [],
         "tag": "CrossFit Daily",
         "permalink": "4AAC6D7E"
     },
@@ -1111,6 +1191,7 @@
             "kettlebell",
             "pullupbar"
         ],
+        "keywords": [],
         "tag": "",
         "permalink": "7B037149"
     },
@@ -1124,6 +1205,7 @@
         "equipment": [
             "track"
         ],
+        "keywords": [],
         "tag": "",
         "permalink": "45D575E2"
     },
@@ -1139,6 +1221,7 @@
             "rower",
             "barbell"
         ],
+        "keywords": [],
         "tag": "",
         "permalink": "986216A7"
     },
@@ -1156,6 +1239,7 @@
             "rower",
             "barbell"
         ],
+        "keywords": [],
         "tag": "",
         "permalink": "279FF16F"
     },
@@ -1176,6 +1260,7 @@
             "rower",
             "barbell"
         ],
+        "keywords": [],
         "tag": "",
         "permalink": "3B46D3AB"
     },
@@ -1200,6 +1285,7 @@
             "150 Air Squats"
         ],
         "equipment": [],
+        "keywords": [],
         "tag": "",
         "permalink": "F334E00C"
     },
@@ -1211,6 +1297,7 @@
             "10 Burpees after each Set"
         ],
         "equipment": [],
+        "keywords": [],
         "tag": "",
         "permalink": "8F9AEE15"
     },
@@ -1224,6 +1311,7 @@
             "10 Burpees"
         ],
         "equipment": [],
+        "keywords": [],
         "tag": "",
         "permalink": "7F191118"
     },
@@ -1234,6 +1322,7 @@
             "Burpees"
         ],
         "equipment": [],
+        "keywords": [],
         "tag": "",
         "permalink": "940F789B"
     },
@@ -1246,6 +1335,7 @@
             "Max Lunges"
         ],
         "equipment": [],
+        "keywords": [],
         "tag": "",
         "permalink": "92B20D64"
     },
@@ -1257,7 +1347,195 @@
             "400m Run"
         ],
         "equipment": [],
+        "keywords": [],
         "tag": "",
         "permalink": "67E2E5B8"
+    },
+    {
+        "name": "",
+        "description": "2 Rounds for Time",
+        "excercises": [
+            "100 Jumping Jacks",
+            "100 Sit-Ups",
+            "100 Jumping Jacks",
+            "100 Heel Touches",
+            "100 Jumping Jacks",
+            "100 Mountain Climbers"
+        ],
+        "equipment": [],
+        "keywords": [],
+        "tag": "",
+        "permalink": "DD644765"
+    },
+    {
+        "name": "",
+        "description": "18' AMRAP, 1' on / 1' off",
+        "excercises": [
+            "4 Bar Muscle Ups",
+            "8 DB Hang Snatches",
+            "30 Double Unders"
+        ],
+        "equipment": [
+            "skippingrope",
+            "dumbbell",
+            "pullupbar"
+        ],
+        "keywords": [],
+        "tag": "",
+        "permalink": "F7347E8F"
+    },
+    {
+        "name": "",
+        "description": "18' AMRAP in Pairs, YGIG",
+        "excercises": [
+            "6 HSPUs",
+            "6 Burpees",
+            "12 KB-DLs"
+        ],
+        "equipment": [
+            "kettlebell"
+        ],
+        "keywords": [
+            "Handstand-Pushups",
+            "HSPU",
+            "Kettlebell",
+            "Burpees",
+            "TeamWod",
+            "PartnerWod",
+            "YGIG"
+        ],
+        "tag": "",
+        "permalink": "3C9B1606"
+    },
+    {
+        "name": "",
+        "description": "4 Rounds for Time",
+        "excercises": [
+            "300m Run",
+            "12 Pull-Ups",
+            "15 KB-SDHPs"
+        ],
+        "equipment": [
+            "track",
+            "kettlebell",
+            "pullupbar"
+        ],
+        "keywords": [
+            "Running",
+            "RunningWod",
+            "Kettlebell",
+            "Pullups"
+        ],
+        "tag": "",
+        "permalink": "AF751452"
+    },
+    {
+        "name": "",
+        "description": "4 Rounds for Time",
+        "excercises": [
+            "25 Wall Balls",
+            "25/20cal Row",
+            "25 Hang Power Cleans"
+        ],
+        "equipment": [
+            "wallball",
+            "rower",
+            "barbell"
+        ],
+        "keywords": [
+            "Wallball",
+            "Rowing",
+            "RowingWod",
+            "Barbell"
+        ],
+        "tag": "",
+        "permalink": "AA62A84B"
+    },
+    {
+        "name": "",
+        "description": "10 Rounds for Time in Pairs / YGIG + 200/160cal Airbike",
+        "excercises": [
+            "30 Double Unders",
+            "12 KB Swing",
+            "12 KB Front Lunges"
+        ],
+        "equipment": [
+            "skippingrope",
+            "kettlebell",
+            "airbike"
+        ],
+        "keywords": [
+            "DoubleUnders",
+            "Kettlebell",
+            "Airbike",
+            "TeamWod",
+            "PartnerWod",
+            "YGIG"
+        ],
+        "tag": "",
+        "permalink": "9C520574"
+    },
+    {
+        "name": "",
+        "description": "20min AMRAP",
+        "excercises": [
+            "400m Run",
+            "Max Reps Power Cleans",
+            "Max Reps Pull-Ups",
+            "Max Reps Power Cleans"
+        ],
+        "equipment": [
+            "track",
+            "barbell",
+            "pullupbar"
+        ],
+        "keywords": [
+            "Running",
+            "RunningWod",
+            "Pullups",
+            "PowerClean",
+            "Barbell"
+        ],
+        "tag": "",
+        "permalink": "A7BFAF86"
+    },
+    {
+        "name": "",
+        "description": "5 Rounds for Time",
+        "excercises": [
+            "250m Run",
+            "9 Thrusters",
+            "6 Burpees"
+        ],
+        "equipment": [
+            "track",
+            "barbell"
+        ],
+        "keywords": [
+            "Running",
+            "RunningWod",
+            "Thruster",
+            "Burpees"
+        ],
+        "tag": "",
+        "permalink": "BE6B2258"
+    },
+    {
+        "name": "",
+        "description": "20min AMRAP",
+        "excercises": [
+            "15/12cal Airbike",
+            "Max Reps HSPUs"
+        ],
+        "equipment": [
+            "airbike"
+        ],
+        "keywords": [
+            "Airbike",
+            "Hanstand-Pushups",
+            "HSPU"
+        ],
+        "tag": "",
+        "permalink": "002EA84B"
     }
 ]

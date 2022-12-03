@@ -39,15 +39,16 @@ $title = $wod["name"];
 $excercises = implode("\n", $wod["excercises"]);
 $user = "@Wodai.ly";
 
-// $img = imagecreatefromjpeg($img_src);
-// $img = greyscale($img);
+$img = imagecreatefromjpeg($img_src);
+$img = greyscale($img);
+$img = darken($img);
 
 // Fallback: Single color instead of unsplash
-$img = imagecreate(1080, 1080) or die("Can't create image!");
-// We Allocate a color to be used as the canvas background
-$colorIndigo = imagecolorallocate($img, 0x3F, 0x51, 0xB5);
-// We Apply color as canvas background
-imagefill($img, 0, 0, $colorIndigo);
+// $img = imagecreate(1080, 1080) or die("Can't create image!");
+// // We Allocate a color to be used as the canvas background
+// $colorIndigo = imagecolorallocate($img, 0x3F, 0x51, 0xB5);
+// // We Apply color as canvas background
+// imagefill($img, 0, 0, $colorIndigo);
 
 $white = imagecolorallocate($img, 255, 255, 255);
 
@@ -57,9 +58,9 @@ $myCanvasHeight = imagesy($img);
 $fontSize = 16;
 
 // Configs for variable font sizes
-tryWrite($img, 150, 0.1, 0.3, array(48, 42, 36, 32, 28, 24, 20, 16, 12, 8), $font, $description, $white);
-tryWrite($img, 300, 0.1, 0.3, array(42, 36, 28, 24, 20, 16, 12, 8), $font, $excercises, $white);
-tryWrite($img, 930, 0.1, 0.3, array(20), $font, $user, $white);
+tryWrite($img, 150, 0.1, 0.3, array(56, 48, 42, 36, 32, 28, 24, 20, 16, 12, 8), $font, $description, $white);
+tryWrite($img, 300, 0.1, 0.3, array(48, 42, 36, 28, 24, 20, 16, 12, 8), $font, $excercises, $white);
+tryWrite($img, 930, 0.1, 0.3, array(26), $font, $user, $white);
 
 header('Content-Type: image/png');
 header('Content-Disposition: Attachment;filename="Wodaily - ' . $title . '.png"');
@@ -135,11 +136,17 @@ function tryWrite($img, $offset, $padX, $padY, $fontsizes, $font, $text, $color)
 
 function greyscale(&$img)
 {
-
     $src = $img;
     $dst = $img;
 
     imagecopymergegray($dst, $src, 0, 0, 0, 0, 1080, 1080, 0);
 
     return $dst;
+}
+
+function darken(&$img)
+{
+    imagefilter($img, IMG_FILTER_GAUSSIAN_BLUR, 50);
+    imagefilter($img, IMG_FILTER_BRIGHTNESS, 5);
+    return $img;
 }
