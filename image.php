@@ -1,21 +1,14 @@
 <?php
 
-// Config
+include("./tools.inc.php");
+
 $img_src = "https://source.unsplash.com/random/1080x1080/?crossfit";
-// $font = "C:\Users\superuser\AppData\Local\Microsoft\Windows\Fonts\PermanentMarker-Regular.ttf"; // TODO : Relative Path
-// $font = "./assets/fonts/permanent-marker-v16-latin-regular.ttf";
 $font = "permanent-marker-v16-latin-regular";
 $filename = "wods.json";
 
-$GLOBALS['debug'] = true;
-
-if ($GLOBALS['debug']) {
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
-}
-
-// TODO: Refresh Picture while keeping text
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 // Load data from json
 $content = file_get_contents($filename);
@@ -46,28 +39,27 @@ $title = $wod["name"];
 $excercises = implode("\n", $wod["excercises"]);
 $user = "@Wodai.ly";
 
-$img = imagecreatefromjpeg($img_src);
-$img = greyscale($img);
+// $img = imagecreatefromjpeg($img_src);
+// $img = greyscale($img);
 
 // Fallback: Single color instead of unsplash
-// $img = imagecreate(1080, 1080) or die("Can't create image!");
+$img = imagecreate(1080, 1080) or die("Can't create image!");
 // We Allocate a color to be used as the canvas background
-// $colorIndigo = imagecolorallocate($img, 0x3F, 0x51, 0xB5);
+$colorIndigo = imagecolorallocate($img, 0x3F, 0x51, 0xB5);
 // We Apply color as canvas background
-// imagefill($img, 0, 0, $colorIndigo);
+imagefill($img, 0, 0, $colorIndigo);
 
 $white = imagecolorallocate($img, 255, 255, 255);
-
-// putenv('GDFONTPATH=' . realpath('.') . '/assets/fonts');
 
 $myCanvasWidth  = imagesx($img);
 $myCanvasHeight = imagesy($img);
 
 $fontSize = 16;
 
-writeDescription($img, $myCanvasWidth, $myCanvasHeight, 16, 0, $font, $description, $white);
-writeInstructions($img, $myCanvasWidth, $myCanvasHeight, 16, 0, $font, $excercises, $white);
-writeBranding($img, $myCanvasWidth, $myCanvasHeight, 30, 0, $font, $user, $white);
+// Configs for variable font sizes
+tryWrite($img, 150, 0.1, 0.3, array(48, 42, 36, 32, 28, 24, 20, 16, 12, 8), $font, $description, $white);
+tryWrite($img, 300, 0.1, 0.3, array(42, 36, 28, 24, 20, 16, 12, 8), $font, $excercises, $white);
+tryWrite($img, 930, 0.1, 0.3, array(20), $font, $user, $white);
 
 header('Content-Type: image/png');
 header('Content-Disposition: Attachment;filename="Wodaily - ' . $title . '.png"');
@@ -75,30 +67,22 @@ header('Content-Disposition: Attachment;filename="Wodaily - ' . $title . '.png"'
 imagepng($img);
 imagedestroy($img);
 
-// Content is very variable in width and height
-// Target is to put text in boxes to achieve a maximum frame with a horizontal padding of 10% and a vertical padding of 30%
-// Smaller text should maintain a specific textsize, while bigger text is being scaled down
-function writeDescription($img, $width, $height, $fontsize, $angle, $font, $text, $color)
+
+function tryWrite($img, $offset, $padX, $padY, $fontsizes, $font, $text, $color)
 {
-    $fontsizeDecreaseInterval = 2;
-    $instructionsOffset = -250;
+    $angle = 0;
+    $maxAttempts = sizeof($fontsizes);
 
-    $padLeft = 0.1 * $width;
-    $padRight = 0.1 * $width;
-    $padTop = 0.3 * $height;
-    $padBottom = 0.2 * $height;
+    $width = imagesx($img);
+    $height = imagesy($img);
 
-    $maxAttempts = 10;
-    $attempt = 0;
+    for ($i = 0; $i < $maxAttempts; $i++) {
+        $fontsize = $fontsizes[$i];
 
-    do {
-        $dynamicFontSize = $width / ($fontsize - $attempt * $fontsizeDecreaseInterval);
-        $attempt += 1;
+        // Try to fit with current fontsize
+        $textBounds = imageftbbox($fontsize, $angle, $font, $text);
 
-        // Try to fit with default size
-        $textBounds = imageftbbox($dynamicFontSize, $angle, $font, $text);
-
-        // Get the text upper, lower, left and right corner bounds of our text bounding box...
+        // Get bounds that text would require to verify fitting
         $lower_left_x  = $textBounds[0];
         $lower_left_y  = $textBounds[1];
         $lower_right_x = $textBounds[2];
@@ -112,123 +96,41 @@ function writeDescription($img, $width, $height, $fontsize, $angle, $font, $text
         $textWidth  =  $lower_right_x - $lower_left_x;
         $textHeight = $lower_right_y - $upper_right_y;
 
-        // Current Text: 386/846 - Current Img: 432/864
-        $widthFits = $textWidth <= $width - $padLeft - $padRight;
-        $heightFits = $textHeight <= $height - $padTop - $padBottom;
+        if ($textWidth <= $width - $padX * 2 && $textHeight <= $height - $padY * 2) {
 
-        if ($widthFits && $heightFits) {
-
-            // Text fits content, append to image and exit
-            //Get the starting position for centering
+            // Center text horizontally and vertically (+ vertical offset)
             $start_x_offset = ($width - $textWidth) / 2;
-            $start_y_offset = (($height - $textHeight) + $fontsize * 2) / 2 + $instructionsOffset;
+            $start_y_offset = $offset;
+            // $start_y_offset = (($height - $textHeight) + $fontsize * 2) / 2 + $offset;
 
-            // Write text to the image using TrueType fonts
-            imagettftext($img, $dynamicFontSize, $angle, (int)$start_x_offset, (int)$start_y_offset, $color, $font, $text);
+            imagettftext($img, $fontsize, $angle, (int)$start_x_offset, (int)$start_y_offset, $color, $font, $text);
 
-            break;
+            return;
         }
-    } while (true);
-}
+    }
 
-// Content is very variable in width and height
-// Target is to put text in boxes to achieve a maximum frame with a horizontal padding of 10% and a vertical padding of 30%
-// Smaller text should maintain a specific textsize, while bigger text is being scaled down
-function writeInstructions($img, $width, $height, $fontsize, $angle, $font, $text, $color)
-{
-    $fontsizeDecreaseInterval = 2;
-    $instructionsOffset = 100;
+    // Add error when trying to add too much text
+    $error = "Error: Text too Long!";
+    $fontsize = $width / $fontsizes[0];
 
-    $padLeft = 0.1 * $width;
-    $padRight = 0.1 * $width;
-    $padTop = 0.3 * $height;
-    $padBottom = 0.2 * $height;
+    $textBounds = imageftbbox($fontsize, $angle, $font, $error);
 
-    $maxAttempts = 10;
-    $attempt = 0;
+    $lower_left_x  = $textBounds[0];
+    $lower_left_y  = $textBounds[1];
+    $lower_right_x = $textBounds[2];
+    $lower_right_y = $textBounds[3];
+    $upper_right_x = $textBounds[4];
+    $upper_right_y = $textBounds[5];
+    $upper_left_x  = $textBounds[6];
+    $upper_left_y  = $textBounds[7];
 
-    do {
-        $dynamicFontSize = $width / ($fontsize - $attempt * $fontsizeDecreaseInterval);
-        $attempt += 1;
+    $textWidth  =  $lower_right_x - $lower_left_x;
+    $textHeight = $lower_right_y - $upper_right_y;
 
-        // Try to fit with default size
-        $textBounds = imageftbbox($dynamicFontSize, $angle, $font, $text);
+    $start_x_offset = ($width - $textWidth) / 2;
+    $start_y_offset = (($height - $textHeight) + $fontsize * 2) / 2 + $offset;
 
-        // Get the text upper, lower, left and right corner bounds of our text bounding box...
-        $lower_left_x  = $textBounds[0];
-        $lower_left_y  = $textBounds[1];
-        $lower_right_x = $textBounds[2];
-        $lower_right_y = $textBounds[3];
-        $upper_right_x = $textBounds[4];
-        $upper_right_y = $textBounds[5];
-        $upper_left_x  = $textBounds[6];
-        $upper_left_y  = $textBounds[7];
-
-        // Get Text Width and Height
-        $textWidth  =  $lower_right_x - $lower_left_x;
-        $textHeight = $lower_right_y - $upper_right_y;
-
-        // Current Text: 386/846 - Current Img: 432/864
-        $widthFits = $textWidth <= $width - $padLeft - $padRight;
-        $heightFits = $textHeight <= $height - $padTop - $padBottom;
-
-        // if ($GLOBALS['debug']) {
-        //     echo "Verifying image dimensions:";
-        //     echo "Height Fits: " . $heightFits . " - Width Fits: " . $widthFits . "<br/>";
-        //     echo "Height: " . $height . " - " . $padTop . " - " . $padBottom . " = " . $height - $padTop - $padBottom . "ASD<br/>";
-        //     echo "Width: " . $width . " - " . $padLeft . " - " . $padRight . " = " . $width - $padLeft - $padRight . "<br/>";
-        // }
-
-        if ($widthFits && $heightFits) {
-
-            // Text fits content, append to image and exit
-            //Get the starting position for centering
-            $start_x_offset = ($width - $textWidth) / 2;
-            $start_y_offset = (($height - $textHeight) + $fontsize * 2) / 2 + $instructionsOffset;
-
-            // Write text to the image using TrueType fonts
-            imagettftext($img, $dynamicFontSize, $angle, (int)$start_x_offset, (int)$start_y_offset, $color, $font, $text);
-
-            break;
-        }
-
-        // if ($attempt >= $maxAttempts) {
-        //     echo "<script>console.err('Too many attempts to scale image')</script>";
-        //     break;
-        // }
-
-        // echo "Text too big - Recalculating. Attempt " . $attempt . " Current Text: " . $textWidth . "/" . $textHeight . " - Current Img: " . $height . "/" . $width . " - Paddings (TRBL) " . $padTop . "/" . $padRight . "/" . $padBottom . "/" . $padLeft . "<br/>";
-    } while (true);
-}
-
-// Branding is fixed text, centered at the lower end of the image
-function writeBranding($img, $width, $height, $fontsize, $angle, $font, $text, $color)
-{
-    $fontsize = $width / $fontsize;
-
-    $brandingOffset = 450;
-    $myTextBoundingBox = imageftbbox($fontsize, $angle, $font, $text);
-
-    // Get the text upper, lower, left and right corner bounds of our text bounding box...
-    $lower_left_x  = $myTextBoundingBox[0];
-    $lower_left_y  = $myTextBoundingBox[1];
-    $lower_right_x = $myTextBoundingBox[2];
-    $lower_right_y = $myTextBoundingBox[3];
-    $upper_right_x = $myTextBoundingBox[4];
-    $upper_right_y = $myTextBoundingBox[5];
-    $upper_left_x  = $myTextBoundingBox[6];
-    $upper_left_y  = $myTextBoundingBox[7];
-
-    // Get Text Width and Height
-    $myTextWidth  =  $lower_right_x - $lower_left_x; //or  $upper_right_x - $upper_left_x
-    $myTextHeight = $lower_right_y - $upper_right_y; //or  $lower_left_y - $upper_left_y
-
-    //Get the starting position for centering
-    $start_x_offset = ($width - $myTextWidth) / 2;
-    $start_y_offset = (($height - $myTextHeight) + $fontsize * 2) / 2 + $brandingOffset;
-
-    // Write text to the image using TrueType fonts
-    imagettftext($img, $fontsize, $angle, (int)$start_x_offset, (int)$start_y_offset, $color, $font, $text);
+    imagettftext($img, $fontsize, $angle, (int)$start_x_offset, (int)$start_y_offset, $color, $font, $error);
 }
 
 function greyscale(&$img)
@@ -240,15 +142,4 @@ function greyscale(&$img)
     imagecopymergegray($dst, $src, 0, 0, 0, 0, 1080, 1080, 0);
 
     return $dst;
-}
-
-function findObjectById($array, $permalink)
-{
-    foreach ($array as $element) {
-        if ($permalink == $element["permalink"]) {
-            return $element;
-        }
-    }
-
-    return false;
 }

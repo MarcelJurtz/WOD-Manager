@@ -13,6 +13,8 @@
 <body>
 
   <?php
+    include("./tools.inc.php");
+
     $string = file_get_contents("wods.json");
     if ($string === false) {
       // TODO
@@ -45,17 +47,6 @@
 
     $params = '?wod=' . $permalink;
     $img_url = 'image.php' . $params;
-
-    function findObjectById($array, $permalink)
-    {
-        foreach ($array as $element) {
-            if ($permalink == $element["permalink"]) {
-                return $element;
-            }
-        }
-
-        return false;
-    }
   ?>
 
   <div class="card mx-auto my-1 border-0 shadow-lg" style="width: 450px; background:#000;">
