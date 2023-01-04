@@ -1,0 +1,71 @@
+CREATE TABLE accounts (
+	id int NOT NULL AUTO_INCREMENT,
+  	username varchar(50) NOT NULL,
+  	password char(60) NOT NULL,
+  	email varchar(100) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE log(
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  source VARCHAR(50),
+  ip VARCHAR(45),
+  params TEXT
+);
+
+CREATE TABLE login_log(
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  username VARCHAR(50),
+  ip VARCHAR(45)
+);
+
+CREATE TABLE wod(
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  designation VARCHAR(100),
+  description VARCHAR(500),
+  exercises VARCHAR(65535),
+  permalink VARCHAR(36)
+);
+
+CREATE TABLE equipment(
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  designation VARCHAR(25),
+  displayname VARCHAR(75)
+);
+
+CREATE TABLE wod_equipment(
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  wod_id INT NOT NULL,
+  equipment_id INT NOT NULL,
+  FOREIGN KEY (wod_id) REFERENCES wod(id),
+  FOREIGN KEY (equipment_id) REFERENCES equipment(id)
+);
+
+CREATE TABLE tag(
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  designation VARCHAR(25)
+);
+
+CREATE TABLE wod_tag(
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  wod_id INT NOT NULL,
+  tag_id INT NOT NULL,
+  FOREIGN KEY (wod_id) REFERENCES wod(id),
+  FOREIGN KEY (tag_id) REFERENCES tag(id)
+);
+
+INSERT INTO accounts (id, username, password, email) VALUES (1, 'Marcel', '$2y$10$fmvOx4WQeqlDazluko8UPeqQ2b12PZJFmGNY18kN9WPpv2O3mF7km', 'jurtzmarcel@gmail.com');
+
+-- Sample Entry
+INSERT INTO tag(designation) VALUES ('Benchmark');
+INSERT INTO equipment(designation, displayname) VALUES ('track', 'Track / Option for Running');
+INSERT INTO equipment(designation, displayname) VALUES ('kettlebell', 'Kettlebell');
+INSERT INTO equipment(designation, displayname) VALUES ('pullupbar', 'Pull-up-Bar');
+INSERT INTO wod(designation, description, exercises, permalink) VALUES ('Helen', '3 Rounds for Time', '400m Run, 21 Kettlebell-Swings, 12 Pull-Ups', '74BF4E7C');
+INSERT INTO wod_tag (wod_id, tag_id) VALUES(1,1);
+INSERT INTO wod_equipment (wod_id, equipment_id) VALUES(1,1);
+INSERT INTO wod_equipment (wod_id, equipment_id) VALUES(1,2);
+INSERT INTO wod_equipment (wod_id, equipment_id) VALUES(1,3);

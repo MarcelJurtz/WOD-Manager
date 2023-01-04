@@ -1,81 +1,134 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <title>Wodaily Image Generator</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Image generator to accompany wodai.ly functional fitness workout generator" />
+<?php
 
-  <link href="./assets/vendor/fontawesome-free-6.2.0-web/css/fontawesome.min.css" rel="stylesheet">
-  <link href="./assets/vendor/fontawesome-free-6.2.0-web/css/solid.css" rel="stylesheet">
-  <link href="./assets/vendor/bootstrap-5.2.1-dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
+// error_reporting(E_ALL);
+require_once('./admin/db.php');
 
-  <?php
-    include("./tools.inc.php");
+if (!isset($_GET['name']) || empty($_GET['name']) || !isset($_GET['token']) || empty($_GET['token'])) {
+  http_response_code(404);
+  include('./pages/404.html');
+  die();
+}
 
-    $string = file_get_contents("wods.json");
-    if ($string === false) {
-      // TODO
-    }
+$name = $_GET['name'];
+$token = $_GET['token'];
 
-    $data = json_decode($string, true);
-    if ($data === null) {
-      // TODO
-    }
+$text1 = $_GET['text1'];
+$text2 = $_GET['text2'];
+$text3 = $_GET['text3'];
+$text4 = $_GET['text4'];
 
-    $wod = false;
+$con = getConnection();
 
-    // Use supplied wod if available, else random
-    if(isset($_GET['wod'])) {
-      $wod = findObjectById($data, $_GET["wod"]);
-    }
+// Log Request
+$uri = $_SERVER['REQUEST_URI'];
+$ip = $_SERVER['REMOTE_ADDR'];
+$src = 'api';
+$stmt = $con->prepare('INSERT INTO log (source, ip, params) VALUES (?, ?, ?)');
+$stmt->bind_param('sss', $src, $ip, $uri);
+$status = $stmt->execute();
+$stmt->close();
 
-    if(!$wod) {
-      $wod_index = rand(0, count($data));
-      $wod = $data[$wod_index];
-    }
+$stmt = $con->prepare('SELECT l.id, l.template, l.font, l.landscape, l.filename, l.background_url, COALESCE(dl.ct, 0) FROM licenses l LEFT JOIN (SELECT license_id, count(*) ct FROM download_log GROUP BY license_id) AS dl ON l.id = dl.license_id WHERE l.token = ? AND l.enabled = 1');
 
-    $permalink = $wod["permalink"];
-    $excercises = implode("\n",$wod["excercises"]);
-    $instructions = $wod["description"];
+$stmt->bind_param('s', $token);
+$stmt->execute();
+$stmt->bind_result($certId, $template, $font, $landscape, $filename, $backgroundUrl, $dlCount);
+$stmt->fetch();
+$stmt->close();
 
-    $hashtags = getHashtagString($wod["keywords"]) . ' ' . getRandomDefaultHashtags();
-    $prefix = "";
-    $suffix = "Follow @Wodai.ly on Instagram for more workouts!\n\n";
-    $src = "Background-images are from unsplash.com";
+if (!isset($template) || trim($template) === '') {
+  http_response_code(404);
+  include('./pages/404.html');
+  die();
+}
 
-    $params = '?wod=' . $permalink;
-    $img_url = 'image.php' . $params;
-  ?>
+// Log Download Request
+$stmt = $con->prepare('INSERT INTO download_log (license_id, params) VALUES (?, ?)');
+$stmt->bind_param('ss', $certId, $token);
+$status = $stmt->execute();
+$stmt->close();
 
-  <div class="card mx-auto my-1 border-0 shadow-lg" style="width: 450px; background:#000;">
-    <img src="<?php echo $img_url; ?>" class="card-img-top bg-white rounded-0" style=" background:url(assets/preview.gif) center/50% no-repeat; " width="450" height="450" alt="image with workout instructions">
-    <div class="card-body text-white">
-      <div class="container w-100"></div>
-      <label> 
-          <a href="JavaScript:Void(0);" 
-            title="Copy Caption" 
-            id="copy" 
-            style="background-color: rgba(255, 255, 255, 0.3) !important; color:white !important;" 
-            class="badge badge-light text-decoration-none">Copy <i class="fa-regular fa-copy"></i>
-          </a>
-        </label>
-      <div class="form-group my-3">
-        <textarea id="details" class="form-control" rows="8" data-permalink="<?php echo $permalink ?>">
-          <?php echo $prefix . $instructions . ":\n\n" . $excercises . "\n\n" . $suffix . $hashtags . "\n\n" . $src ?>
-        </textarea>
-      </div>
-      <button class="btn btn-primary" id="get-random">Other WOD</button>
-      <button class="btn btn-outline-light" id="replace-bg">Replace BG</button>
-    </div>
-  </div>
-  <div class="container my-2 small text-center" style="max-width:450px;">
-    Made with <i class="text-danger fa-solid fa-heart"></i> by <a class="text-dark" href="https://github.com/MarcelJurtz"><b> Marcel Jurtz</b></a> | Photos from <a class="text-dark" href="https://source.unsplash.com/"><b> unsplash.com </b></a>
-  </div>
+if (!isset($filename) || trim($filename) === '') {
+  $filename = "certificate";
+}
 
-  <script src="./assets/vendor/bootstrap-5.2.1-dist/js/bootstrap.bundle.min.js"></script> 
-  <script src="./script.js"></script> 
-</body>
-</html>
+if(!isset($font) || trim($font) === '') {
+  $font = "roboto";
+}
+
+$template = str_replace(array('{{name}}', '{{ name }}'), $name, $template);
+$template = str_replace(array('{{nummer}}', '{{ nummer }}'), $dlCount + 1, $template);
+$template = str_replace(array('{{datum}}', '{{ datum }}'), date("d.m.Y"), $template);
+
+if (isset($text1)) {
+  $template = str_replace(array('{{text1}}', '{{ text1 }}'), $text1, $template);
+}
+
+if (isset($text2)) {
+  $template = str_replace(array('{{text2}}', '{{ text2 }}'), $text2, $template);
+}
+
+if (isset($text3)) {
+  $template = str_replace(array('{{text3}}', '{{ text3 }}'), $text3, $template);
+}
+
+if (isset($text4)) {
+  $template = str_replace(array('{{text4}}', '{{ text4 }}'), $text4, $template);
+}
+
+$mpdf = new \Mpdf\Mpdf([
+  'mode' => 'utf-8',
+  'format' => 'A4',
+  'orientation' => $landscape == 0 ? 'P' : 'L',
+  'margin_left' => 0,
+  'margin_right' => 0,
+  'margin_top' => 0,
+  'margin_bottom' => 0,
+  'margin_header' => 0,
+  'margin_footer' => 0,
+  'fontDir' => __DIR__ . '/assets/fonts',
+  'fontdata' => [
+    'roboto' => [
+      'R' => 'Roboto-Regular.ttf',
+      'I' => 'Roboto-Ictalic.ttf',
+    ],
+    'roboto-mono' => [
+      'R' => 'RobotoMono-Medium.ttf',
+      'I' => 'RobotoMono-Italic.ttf',
+    ],
+    'open-sans' => [
+      'R' => 'OpenSans-Regular.ttf',
+      'I' => 'OpenSans-Italic.ttf'
+    ],
+    'lato' => [
+      'R' => 'Lato-Regular.ttf',
+      'I' => 'Lato-Italic.ttf'
+    ],
+    'comforter' => [
+      'R' => 'Comforter-Regular.ttf'
+    ],
+    'bebas-neue' => [
+      'R' => 'BebasNeue-Regular.ttf',
+    ]
+  ],
+  'default_font' => $font
+]);
+
+try {
+  if (isset($backgroundUrl) && $backgroundUrl != null && $backgroundUrl != "") {
+    $mpdf->SetDefaultBodyCSS('background', "url('" . $backgroundUrl . "')");
+    $mpdf->SetDefaultBodyCSS('background-image-resize', 6);
+  }
+
+  $mpdf->WriteHTML($template);
+  $mpdf->Output($filename . ".pdf", 'D');
+} catch (Exception $e) {
+  $stmt = $con->prepare('INSERT INTO log (source, ip, params) VALUES ("server", "", ?)');
+  $stmt->bind_param('s', $e->getMessage());
+  $status = $stmt->execute();
+  $stmt->close();
+}
+
+if (isset($redirectUrl) && trim($redirectUrl) !== '') {
+  header("Location: " . $redirectUrl);
+}
