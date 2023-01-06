@@ -63,6 +63,7 @@ $stmt->close();
             </form>
         </div>
     </div>
+    <?php include('./footer.php'); ?>
 </body>
 <script src="./../vendor/jquery/jquery-3.5.1.min.js"></script>
 <script src="./../assets/js/bootstrap-5.0.0-beta3/bootstrap.bundle.min.js"></script>

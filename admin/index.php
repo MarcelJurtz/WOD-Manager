@@ -186,6 +186,7 @@ function printMenuBar($editUrl) {
                 </div>
             </div>
         </div>
+        <?php include('./footer.php'); ?>
 
         <!-- END -->
         <script src="./../assets/js/bootstrap-5.0.0-beta3/bootstrap.bundle.min.js"></script>

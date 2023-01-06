@@ -8,6 +8,9 @@
 let details = document.getElementById("details");
 let btnCopy = document.getElementById("copy");
 
+let btnCopyTextInit = document.getElementById("btn-copy-init");
+let btnCopyTextCopied = document.getElementById("btn-copy-copied");
+
 let btnChangeBg = document.getElementById("replace-bg");
 let btnGetRandom = document.getElementById("get-random");
 
@@ -15,9 +18,11 @@ details.textContent = details.textContent.trim();
 
 btnCopy.addEventListener('click', function(event) {
     navigator.clipboard.writeText(details.textContent).then(function() {
-        btnCopy.innerHTML = "Copied! <i class='fa fa-check-circle'></i>";
+        btnCopyTextInit.classList.add("d-none");
+        btnCopyTextCopied.classList.remove("d-none");
         setTimeout(function() {
-            btnCopy.innerHTML = 'Copy <i class="fa-regular fa-copy"></i>';
+            btnCopyTextInit.classList.remove("d-none");
+            btnCopyTextCopied.classList.add("d-none");
         }, 1500);
     }, function(err) {
         console.error('Async: Could not copy text: ', err);
