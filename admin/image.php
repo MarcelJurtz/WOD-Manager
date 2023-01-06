@@ -2,44 +2,57 @@
 
 include("./tools.inc.php");
 
-$img_src = "https://source.unsplash.com/random/1080x1080/?crossfit";
-$font = "permanent-marker-v16-latin-regular";
-$filename = "wods.json";
+// Fetch actual image url returned via 302
+$url="https://source.unsplash.com/random/1080x1080/?crossfit";
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_HEADER, true);
+curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // Must be set to true so that PHP follows any "Location:" header
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+$a = curl_exec($ch); // $a will contain all headers
 
-// Load data from json
-$content = file_get_contents($filename);
+$url = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL); // This is what you need, it will return you the last effective URL
+curl_close($ch);
 
-if ($content === false) {
-    echo 'Error reading data';
-    return;
-}
+// Download Image
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $url); 
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // good edit, thanks!
+curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1); // also, this seems wise considering output is image.
+$data = curl_exec($ch);
+curl_close($ch);
 
-$data = json_decode($content, true);
-if ($data === null) {
-    echo 'Error parsing data';
-    return;
-}
+$img = imagecreatefromstring($data);
 
-$wod = findObjectById($data, $_GET["wod"]);
-if ($wod === false) {
-    echo 'Error searching wod in data';
-    return;
-}
+$fontx = "permanent-marker-v16-latin-regular.ttf";
+$font_path = $_SERVER['DOCUMENT_ROOT'] . '/workouts/assets/fonts/' . $fontx;
+
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
+
+// Be careful when using echo statements for debugging!
+// They break the image generation
 
 // Setup GD
-putenv('GDFONTPATH=' . realpath('.') . '/assets/fonts');
+// putenv('GDFONTPATH=' . $_SERVER['DOCUMENT_ROOT'] . '/workouts/assets/fonts');
+
+// echo $_SERVER['DOCUMENT_ROOT'] . '/workouts/assets/fonts';
+// echo '<br/>';
 
 // Configure image content
-$description =  wordwrap($wod["description"], 38, "\n");
-$title = $wod["name"];
-$excercises = implode("\n", $wod["excercises"]);
+$description =  wordwrap($_GET["description"], 38, "\n"); // Why?
+$title = $_GET["designation"];
+$excercises = str_replace(", ",",\n", $_GET["exercises"]);
 $user = "@Wodai.ly";
 
-$img = imagecreatefromjpeg($img_src);
+// echo $description;
+// echo '<br/>';
+// echo $title;echo '<br/>';
+// echo $excercises;echo '<br/>';
+// echo $user;echo '<br/>';
+
 $img = greyscale($img);
 $img = darken($img);
 
@@ -64,9 +77,9 @@ $padding = 0.1;
 $excercisesMaxHeight = $brandingPosY - $excercisesPosY;
 
 // Configs for variable font sizes
-tryWrite($img, $descriptionPosY, $padding, $padding, array(56, 48, 42, 36, 32, 28, 24, 20, 16, 12, 8), $font, $description, $white);
-tryWrite($img, $excercisesPosY, $padding, $padding, array(48, 42, 36, 28, 24, 20, 16, 12, 8), $font, $excercises, $white, $excercisesMaxHeight);
-tryWrite($img, $brandingPosY, $padding, $padding, array(26), $font, $user, $white);
+tryWrite($img, $descriptionPosY, $padding, $padding, array(56, 48, 42, 36, 32, 28, 24, 20, 16, 12, 8), $font_path, $description, $white);
+tryWrite($img, $excercisesPosY, $padding, $padding, array(48, 42, 36, 28, 24, 20, 16, 12, 8), $font_path, $excercises, $white, $excercisesMaxHeight);
+tryWrite($img, $brandingPosY, $padding, $padding, array(26), $font_path, $user, $white);
 
 header('Content-Type: image/png');
 header('Content-Disposition: Attachment;filename="Wodaily - ' . $title . '.png"');

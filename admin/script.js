@@ -14,6 +14,8 @@ let btnCopyTextCopied = document.getElementById("btn-copy-copied");
 let btnChangeBg = document.getElementById("replace-bg");
 let btnGetRandom = document.getElementById("get-random");
 
+let preview = document.getElementById("preview");
+
 details.textContent = details.textContent.trim();
 
 btnCopy.addEventListener('click', function(event) {
@@ -32,8 +34,11 @@ btnCopy.addEventListener('click', function(event) {
 btnChangeBg.addEventListener('click', function() {
 
     // Add query param if it isn't set already
-    let permalink = document.getElementById("details").dataset.permalink;
-    window.location = window.location.href.split('?')[0] + "?wod=" + permalink;
+    // let permalink = document.getElementById("details").dataset.permalink;
+    // window.location = window.location.href.split('?')[0] + "?wod=" + permalink;
+    let src = preview.src;
+    preview.src = null;
+    preview.src = src;
 });
 
 btnGetRandom.addEventListener('click', function() {

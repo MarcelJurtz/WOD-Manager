@@ -14,8 +14,8 @@
 session_start();
 
 if (!isset($_SESSION['loggedin'])) {
-    header('Location: index.html');
-    exit;
+  header('Location: index.html');
+  exit;
 }
 
 require_once('db.php');
@@ -43,6 +43,9 @@ $suffix = "Follow @Wodai.ly on Instagram for more workouts!\n\n";
 $src = "Background-images are from unsplash.com";
 
 $params = '?wod=' . $permalink;
+$params .= '&designation=' . $designation;
+$params .= '&description=' . $description;
+$params .= '&exercises=' . $exercises;
 $img_url = 'image.php' . $params;
 ?>
 
@@ -55,37 +58,42 @@ $img_url = 'image.php' . $params;
   <div class="content">
     <div class="p-2 container-fluid card">
       <div class="card-body">
-        <h2 class="card-title mb-3">Image-Generator</h2>
 
-        <div class="card mx-auto my-1 border-0 shadow-lg" style="width: 450px; background:#000;">
-          <img src="<?php echo $img_url; ?>" class="card-img-top bg-white rounded-0" style=" background:url(assets/preview.gif) center/50% no-repeat; " width="450" height="450" alt="image with workout instructions">
-          <div class="card-body text-white">
-            <div class="container w-100"></div>
-            <label>
-              <a href="JavaScript:Void(0);" title="Copy Caption" id="copy" style="background-color: rgba(255, 255, 255, 0.3) !important; color:white !important;" class="badge badge-light text-decoration-none">
-               <span id="btn-copy-init">Copy <?php echo ICON_CLIPBOARD ?></span>
-               <span id="btn-copy-copied" class="d-none">Copied! <?php echo ICON_CHECK ?></span>
-              </a>
-            </label>
-            <div class="form-group my-3">
-              <textarea id="details" class="form-control" rows="8" data-permalink="<?php echo $permalink ?>">
-              <?php echo $prefix . $description . ":\n\n" . $exercises . "\n\n" . $suffix . "\n\n" . $src ?>
-        </textarea>
+        <div class="row">
+          <div class="col-12">
+            <div class="d-flex justify-content-between border-bottom mb-3">
+              <h2 class="card-title mb-3">Image-Generator</h2>
+              <div>
+                <a href="JavaScript:Void(0);" title="Copy Caption" id="copy" class="btn btn-outline-secondary text-decoration-none">
+                  <span id="btn-copy-init">Copy Text <?php echo ICON_CLIPBOARD ?></span>
+                  <span id="btn-copy-copied" class="d-none">Copied! <?php echo ICON_CHECK ?></span>
+                </a>
+                <button class="btn btn-outline-primary" id="get-random">Other WOD</button>
+                <button class="btn btn-outline-secondary" id="replace-bg">Replace BG</button>
+              </div>
             </div>
-            <button class="btn btn-primary" id="get-random">Other WOD</button>
-            <button class="btn btn-outline-light" id="replace-bg">Replace BG</button>
           </div>
         </div>
 
-
+        <div class="row">
+          <div class="d-flex">
+            <img id="preview" src="<?php echo $img_url; ?>" class="card-img-top bg-white rounded-0" style=" background:url(assets/preview.gif) center/50% no-repeat; " width="450" height="450" alt="image with workout instructions">
+            <textarea id="details" class="form-control" rows="8" data-permalink="<?php echo $permalink ?>">
+              <?php echo $prefix . $description . ":\n\n" . $exercises . "\n\n" . $suffix . "\n\n" . $src ?>
+            </textarea>
+          </div>
+        </div>
       </div>
     </div>
-
-    <!-- END -->
-    <script src="./../assets/js/bootstrap-5.0.0-beta3/bootstrap.bundle.min.js"></script>
-    <script src="./script.js"></script>
-
   </div>
+  <?php
+    include('./footer.php');
+  ?>
+
+  <!-- END -->
+  <script src="./../assets/js/bootstrap-5.0.0-beta3/bootstrap.bundle.min.js"></script>
+  <script src="./script.js"></script>
+
 </body>
 
 </html>
