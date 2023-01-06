@@ -13,10 +13,18 @@ if (!isset($_SESSION['loggedin'])) {
 require_once('./shared/db.php');
 require_once('./shared/icons.inc.php');
 
-// Get random wod from DB
 $con = getConnection();
 
-$stmt = $con->prepare('SELECT id, designation, description, exercises, permalink FROM wod ORDER BY RAND() LIMIT 1');
+if(isset($_GET['id'])) {
+  $stmt = $con->prepare('SELECT id, designation, description, exercises, permalink FROM wod WHERE id = ?');
+  $stmt->bind_param('i', $_GET['id']);
+} else {
+  $query = 'SELECT id, designation, description, exercises, permalink FROM wod ORDER BY RAND() LIMIT 1';
+  $stmt = $con->prepare($query);
+}
+
+// Get random wod from DB
+
 $stmt->execute();
 $stmt->bind_result($id, $designation, $description, $exercises, $permalink);
 $stmt->fetch();

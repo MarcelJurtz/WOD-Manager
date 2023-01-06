@@ -120,6 +120,9 @@ function printMenuBar($editUrl) {
                                             <a href="/<?php echo ROOT_FOLDER ?>/admin/edit/wod.php?wod=<?php echo $wod['id']; ?>">
                                                 <i class="fas fa-pencil-alt"></i>
                                             </a>
+                                            <a class="ms-2" href="/<?php echo ROOT_FOLDER ?>/admin/imgen.php?id=<?php echo $wod['id']; ?>">
+                                                <i class="fa-solid fa-camera"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
