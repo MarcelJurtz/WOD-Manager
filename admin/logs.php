@@ -2,11 +2,11 @@
 session_start();
 
 if (!isset($_SESSION['loggedin'])) {
-	header('Location: index.html');
-	exit;
+    header('Location: ./../index.html');
+    exit;
 }
 
-require_once('db.php');
+require_once('./shared/db.php');
 $con = getConnection();
 
 // Logs
@@ -17,7 +17,7 @@ $num_of_rows = $result->num_rows;
 
 $logs = array();
 while ($row = $result->fetch_assoc()) {
-     $logs[] = $row;
+    $logs[] = $row;
 }
 
 $stmt->free_result();
@@ -32,7 +32,7 @@ $num_of_rows = $result->num_rows;
 
 $iplogs = array();
 while ($row = $result->fetch_assoc()) {
-     $iplogs[] = $row;
+    $iplogs[] = $row;
 }
 
 $stmt->free_result();
@@ -42,29 +42,15 @@ $stmt->close();
 
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>Home Page</title>
-		<link href="admin.css" rel="stylesheet" type="text/css">
-		<link rel="stylesheet" href="./../vendor/fontawesome-free-5.15.4-web/css/all.min.css">
-        <link rel="stylesheet" href="./../assets/css/bootstrap-5.0.0-beta3/bootstrap.min.css">
-	</head>
-	<body class="loggedin">
-		<nav class="navtop">
-            <?php
-                include('./menu.php');
-            ?>
-		</nav>
-		<div class="content">
-            <div class="container">
-                <div class="row">
-                    <div class="col-8"><h2>WODs</h2></div>
-                </div>
-            </div>
+<?php include('./shared/head.inc.php') ?>
 
-            <!-- START -->
+<body class="loggedin">
+    <?php include('./shared/menu.inc.php'); ?>
 
-            <div class="p-2 container-fluid">
+    <div class="content">
+        <div class="p-2 container-fluid card">
+            <div class="card-body">
+                <h2 class="card-title mb-3">Logs</h2>
                 <ul class="nav nav-tabs mb-4" id="tabMember" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="main-tab" data-bs-toggle="tab" href="#main" role="tab" aria-controls="main" aria-selected="true">
@@ -83,23 +69,23 @@ $stmt->close();
                         <table class="table">
                             <thead>
                                 <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Time</th>
-                                <th scope="col">Src</th>
-                                <th scope="col">IP</th>
-                                <th scope="col">Parameter</th>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Time</th>
+                                    <th scope="col">Src</th>
+                                    <th scope="col">IP</th>
+                                    <th scope="col">Parameter</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php  foreach($logs as $log): ?>
+                                <?php foreach ($logs as $log) : ?>
                                     <tr>
-                                        <td><?=$log['id'];?></td>
-                                        <td class="text-nowrap"><?=$log['created'];?></td>
-                                        <td><?=$log['source'];?></td>
-                                        <td><?=$log['ip'];?></td>
-                                        <td class="break"><?=$log['params'];?></td>
+                                        <td><?= $log['id']; ?></td>
+                                        <td class="text-nowrap"><?= $log['created']; ?></td>
+                                        <td><?= $log['source']; ?></td>
+                                        <td><?= $log['ip']; ?></td>
+                                        <td class="break"><?= $log['params']; ?></td>
                                     </tr>
-                                <?php endforeach;?>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
@@ -113,20 +99,21 @@ $stmt->close();
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach($iplogs as $log): ?>
+                                <?php foreach ($iplogs as $log) : ?>
                                     <tr>
-                                        <td><?=$log['ip'];?></td>
-                                        <td><?=$log['ct'];?></td>
+                                        <td><?= $log['ip']; ?></td>
+                                        <td><?= $log['ct']; ?></td>
                                     </tr>
-                                <?php endforeach;?>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- END -->
-            <script src="./../assets/js/bootstrap-5.0.0-beta3/bootstrap.bundle.min.js"></script>
-		</div>
-	</body>
+        <?php include('./shared/footer.inc.php'); ?>
+    </div>
+</body>
+
 </html>

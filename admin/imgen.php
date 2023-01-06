@@ -1,26 +1,17 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-  <meta charset="utf-8">
-  <title>Home Page</title>
-  <link href="admin.css" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="./../vendor/fontawesome-free-5.15.4-web/css/all.min.css">
-  <link rel="stylesheet" href="./../assets/css/bootstrap-5.0.0-beta3/bootstrap.min.css">
-</head>
-
 <?php
 
 session_start();
 
 if (!isset($_SESSION['loggedin'])) {
-  header('Location: index.html');
+  header('Location: ./../index.html');
   exit;
 }
 
-require_once('db.php');
-require_once('icons.php');
-include("./tools.inc.php");
+require_once('./shared/db.php');
+require_once('./shared/icons.inc.php');
 
 // Get random wod from DB
 $con = getConnection();
@@ -30,11 +21,6 @@ $stmt->execute();
 $stmt->bind_result($id, $designation, $description, $exercises, $permalink);
 $stmt->fetch();
 $stmt->close();
-
-// TODO Errorhandling
-// if (isset($id)) {
-// }
-
 
 //$hashtags = getHashtagString($wod["keywords"]) . ' ' . getRandomDefaultHashtags();
 $prefix = "";
@@ -49,12 +35,12 @@ $params .= '&exercises=' . $exercises;
 $img_url = 'image.php' . $params;
 ?>
 
+<?php include('./shared/head.inc.php') ?>
+
 <body class="loggedin">
-  <nav class="navtop">
-    <?php
-    include('./menu.php');
-    ?>
-  </nav>
+  <?php
+    include('./shared/menu.inc.php');
+  ?>
   <div class="content">
     <div class="p-2 container-fluid card">
       <div class="card-body">
@@ -77,7 +63,7 @@ $img_url = 'image.php' . $params;
 
         <div class="row">
           <div class="d-flex">
-            <img id="preview" src="<?php echo $img_url; ?>" class="card-img-top bg-white rounded-0" style=" background:url(assets/preview.gif) center/50% no-repeat; " width="450" height="450" alt="image with workout instructions">
+            <img id="preview" src="<?php echo $img_url; ?>" class="card-img-top bg-white rounded-0" style=" background:url(/workouts/assets/img/preview.gif) center/50% no-repeat; " width="450" height="450" alt="image with workout instructions">
             <textarea id="details" class="form-control" rows="8" data-permalink="<?php echo $permalink ?>">
               <?php echo $prefix . $description . ":\n\n" . $exercises . "\n\n" . $suffix . "\n\n" . $src ?>
             </textarea>
@@ -86,13 +72,10 @@ $img_url = 'image.php' . $params;
       </div>
     </div>
   </div>
-  <?php
-    include('./footer.php');
-  ?>
 
   <!-- END -->
-  <script src="./../assets/js/bootstrap-5.0.0-beta3/bootstrap.bundle.min.js"></script>
-  <script src="./script.js"></script>
+  <?php include('./shared/footer.inc.php'); ?>
+  <script src="/workouts/assets/js/imgen.js"></script>
 
 </body>
 

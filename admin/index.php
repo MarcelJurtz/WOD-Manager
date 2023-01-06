@@ -6,8 +6,9 @@ if (!isset($_SESSION['loggedin'])) {
     exit;
 }
 
-require_once('db.php');
-require_once('icons.php');
+require_once('./shared/db.php');
+require_once('./shared/icons.inc.php');
+
 $con = getConnection();
 
 // Workouts
@@ -63,18 +64,12 @@ function printMenuBar($editUrl) {
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta charset="utf-8">
-    <title>Home Page</title>
-    <link href="admin.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="./../vendor/fontawesome-free-5.15.4-web/css/all.min.css">
-    <link rel="stylesheet" href="./../assets/css/bootstrap-5.0.0-beta3/bootstrap.min.css">
-</head>
+<?php include('./shared/head.inc.php') ?>
 
 <body class="loggedin">
     <nav class="navtop">
         <?php
-        include('./menu.php');
+        include('./shared/menu.inc.php');
         ?>
     </nav>
     <div class="content">
@@ -101,7 +96,7 @@ function printMenuBar($editUrl) {
                 <div class="tab-content" id="tabMemberContent">
                     <!-- WODs -->
                     <div class="tab-pane fade active show" id="main" role="tabpanel" aria-labelledby="main-tab">
-                        <?php printMenuBar("./edit-wod.php") ?>
+                        <?php printMenuBar("./edit/wod.php") ?>
                         <table class="table">
                             <thead>
                                 <tr>
@@ -122,7 +117,7 @@ function printMenuBar($editUrl) {
                                         <td class="break"><?= $wod['description']; ?></td>
                                         <td><?= $wod['permalink']; ?></td>
                                         <td>
-                                            <a href="/<?php echo ROOT_FOLDER ?>/admin/edit-wod.php?wod=<?php echo $wod['id']; ?>">
+                                            <a href="/<?php echo ROOT_FOLDER ?>/admin/edit/wod.php?wod=<?php echo $wod['id']; ?>">
                                                 <i class="fas fa-pencil-alt"></i>
                                             </a>
                                         </td>
@@ -133,7 +128,7 @@ function printMenuBar($editUrl) {
                     </div>
                     <!-- Equipment -->
                     <div class="tab-pane fade" id="equipment" role="tabpanel" aria-labelledby="equipment-tab">
-                        <?php printMenuBar("./edit-eq.php") ?>
+                        <?php printMenuBar("./edit/equipment.php") ?>
                         <table class="table">
                             <thead>
                                 <tr>
@@ -148,7 +143,7 @@ function printMenuBar($editUrl) {
                                         <td><?= $eq['id']; ?></td>
                                         <td><?= $eq['displayname']; ?></td>
                                         <td>
-                                            <a href="/<?php echo ROOT_FOLDER ?>/admin/edit-eq.php?eq=<?php echo $eq['id']; ?>">
+                                            <a href="/<?php echo ROOT_FOLDER ?>/admin/edit/equipment.php?eq=<?php echo $eq['id']; ?>">
                                                 <i class="fas fa-pencil-alt"></i>
                                             </a>
                                         </td>
@@ -159,7 +154,7 @@ function printMenuBar($editUrl) {
                     </div>
                     <!-- Tags -->
                     <div class="tab-pane fade" id="tags" role="tabpanel" aria-labelledby="tags-tab">
-                    <?php printMenuBar("./edit-tag.php") ?>
+                    <?php printMenuBar("./edit/tag.php") ?>
                         <table class="table">
                             <thead>
                                 <tr>
@@ -174,7 +169,7 @@ function printMenuBar($editUrl) {
                                         <td><?= $tag['id']; ?></td>
                                         <td><?= $tag['designation']; ?></td>
                                         <td>
-                                            <a href="/<?php echo ROOT_FOLDER ?>/admin/edit-tag.php?tag=<?php echo $tag['id']; ?>">
+                                            <a href="/<?php echo ROOT_FOLDER ?>/admin/edit/tag.php?tag=<?php echo $tag['id']; ?>">
                                                 <i class="fas fa-pencil-alt"></i>
                                             </a>
                                         </td>
@@ -186,10 +181,8 @@ function printMenuBar($editUrl) {
                 </div>
             </div>
         </div>
-        <?php include('./footer.php'); ?>
-
-        <!-- END -->
-        <script src="./../assets/js/bootstrap-5.0.0-beta3/bootstrap.bundle.min.js"></script>
+        <?php include('./shared/footer.inc.php'); ?>
+        
     </div>
 </body>
 

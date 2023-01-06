@@ -1,6 +1,6 @@
 <?php
 
-include("./tools.inc.php");
+include("./shared/tools.inc.php");
 
 // Fetch actual image url returned via 302
 $url="https://source.unsplash.com/random/1080x1080/?crossfit";
