@@ -35,25 +35,33 @@ $stmt->close();
         include('./menu.php');
         ?>
     </nav>
-    <div class="container content">
-        <div class="row">
-            <div class="col-12">
-                <h2><?= isset($designation) ? $designation : "Neuer Tag" ?></h2>
-            </div>
-        </div>
-        <form action="save-tag.php" method="post">
-            <input type="hidden" name="id" value="<?= $id ?>">
-            <div class="row">
-                <div class="col-12 col-md-6">
-                    <div class="form-group">
-                        <label for="designation">Bezeichnung</label>
-                        <input type="text" class="form-control" id="designation" name="designation" placeholder="Bezeichnung" value="<?= $designation ?>" required maxlength="25">
+    <div class="content">
+        <div class="container card">
+            <form action="save-tag.php" method="post">
+                <input type="hidden" name="id" value="<?= $id ?>">
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex justify-content-between border-bottom mb-3">
+                            <h2><?= isset($displayname) ? $displayname : "Neuer Tag" ?></h2>
+                            <div>
+                                <a class="btn btn-outline-danger" href="./index.php">Abbrechen</a>
+                                <input class="btn btn-outline-success" type="submit" value="Speichern">
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <input class="mb-3" type="submit" value="Speichern">
-        </form>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div class="form-group">
+                            <label for="designation">Bezeichnung</label>
+                            <input type="text" class="form-control" id="designation" name="designation" placeholder="Bezeichnung" value="<?= $designation ?>" required maxlength="25">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </body>
 <script src="./../vendor/jquery/jquery-3.5.1.min.js"></script>

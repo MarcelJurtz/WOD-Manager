@@ -20,8 +20,8 @@ if($_POST['id'] > 0) {
 	// No Update!
 	//$permalink = strtoupper(substr(sha1($_POST["designation"] . $_POST["description"] . $_POST["exercises"]),0,8));
 
-	$stmt = $con->prepare('UPDATE wod SET designation = ?, description = ?, exercises = ?, permalink = ? WHERE id = ?');
-	$stmt->bind_param('ssssi', $_POST["designation"], $_POST["description"], $_POST["exercises"], $permalink, $_POST["id"]);
+	$stmt = $con->prepare('UPDATE wod SET designation = ?, description = ?, exercises = ? WHERE id = ?');
+	$stmt->bind_param('sssi', $_POST["designation"], $_POST["description"], $_POST["exercises"], $_POST["id"]);
 	$status = $stmt->execute();
 	$stmt->close();
 } else {

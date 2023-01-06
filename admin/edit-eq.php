@@ -35,31 +35,41 @@ $stmt->close();
         include('./menu.php');
         ?>
     </nav>
-    <div class="container content">
-        <div class="row">
-            <div class="col-12">
-                <h2><?= isset($displayname) ? $displayname : (isset($designation) ? $designation : "New Equipment") ?></h2>
-            </div>
-        </div>
-        <form action="save-eq.php" method="post">
-            <input type="hidden" name="id" value="<?= $id ?>">
-            <div class="row">
-                <div class="col-12 col-md-6">
-                    <div class="form-group">
-                        <label for="designation">Designation</label>
-                        <input type="text" class="form-control" id="designation" name="designation" placeholder="Designation" value="<?= $designation ?>" required maxlength="25">
-                    </div>
-                </div>
-                <div class="col-12 col-md-6">
-                    <div class="form-group">
-                        <label for="displayname">Displayname</label>
-                        <input type="text" class="form-control" id="displayname" name="displayname" placeholder="Displayname" value="<?= $displayname ?>" required maxlength="25">
-                    </div>
-                </div>
-            </div>
+    <div class="content">
+        <div class="container card">
+            <form action="save-eq.php" method="post">
+                <input type="hidden" name="id" value="<?= $id ?>">
 
-            <input class="mb-3" type="submit" value="Speichern">
-        </form>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex justify-content-between border-bottom mb-3">
+                            <h2><?= isset($displayname) ? $displayname : "Neues Equipment" ?></h2>
+                            <div>
+                                <a class="btn btn-outline-danger" href="./index.php">Abbrechen</a>
+                                <input class="btn btn-outline-success" type="submit" value="Speichern">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-12 col-md-6">
+                        <div class="form-group">
+                            <label for="designation">Designation</label>
+                            <input type="text" class="form-control" id="designation" name="designation" placeholder="Designation" value="<?= $designation ?>" required maxlength="25">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-12 col-md-6">
+                        <div class="form-group">
+                            <label for="displayname">Displayname</label>
+                            <input type="text" class="form-control" id="displayname" name="displayname" placeholder="Displayname" value="<?= $displayname ?>" required maxlength="25">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </body>
 <script src="./../vendor/jquery/jquery-3.5.1.min.js"></script>
