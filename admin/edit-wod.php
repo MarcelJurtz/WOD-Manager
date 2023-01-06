@@ -16,7 +16,6 @@ $stmt->bind_result($id, $designation, $description, $exercises);
 $stmt->fetch();
 $stmt->close();
 
-
 // Get tags & referenced tags for current workout
 $stmt = $con->prepare('SELECT tag.id, tag.designation, CASE WHEN EXISTS (SELECT 1 FROM wod_tag WHERE wod_id = ? AND tag.id = wod_tag.tag_id) THEN 1 ELSE 0 END AS selected FROM tag ORDER BY tag.designation ');
 $stmt->bind_param('i', $_GET["wod"]);
@@ -62,7 +61,7 @@ $stmt->close();
 
 <head>
     <meta charset="utf-8">
-    <title>WOD verwalten</title>
+    <title>Manage WOD</title>
     <link href="admin.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="./../vendor/fontawesome-free-5.15.4-web/css/all.min.css">
     <link rel="stylesheet" href="./../assets/css/bootstrap-5.0.0-beta3/bootstrap.min.css">
@@ -85,8 +84,8 @@ $stmt->close();
             <div class="row">
                 <div class="col-12 col-md-6">
                     <div class="form-group">
-                        <label for="designation">Bezeichnung</label>
-                        <input type="text" class="form-control" id="designation" name="designation" placeholder="Bezeichnung" value="<?= $designation ?>" required maxlength="100">
+                        <label for="designation">Designation</label>
+                        <input type="text" class="form-control" id="designation" name="designation" placeholder="Designation" value="<?= $designation ?>" required maxlength="100">
                     </div>
                 </div>
             </div>

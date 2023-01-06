@@ -13,17 +13,24 @@ if (!isset($_POST['id'])) {
 require_once('db.php');
 $con = getConnection();
 
-$permalink = 'dummy'; // TODO
 $wod = $_POST['id'];
 
 if($_POST['id'] > 0) {
+
+	// No Update!
+	//$permalink = strtoupper(substr(sha1($_POST["designation"] . $_POST["description"] . $_POST["exercises"]),0,8));
+
 	$stmt = $con->prepare('UPDATE wod SET designation = ?, description = ?, exercises = ?, permalink = ? WHERE id = ?');
 	$stmt->bind_param('ssssi', $_POST["designation"], $_POST["description"], $_POST["exercises"], $permalink, $_POST["id"]);
 	$status = $stmt->execute();
 	$stmt->close();
 } else {
-	$stmt = $con->prepare('INSERT INTO equipment (designation, description, exercises, permalink) VALUES (?,?,?,?)');
-	$stmt->bind_param('ss', $_POST["designation"], $_POST["description"], $_POST["exercises"], $permalinkk);
+
+	// Generate permalink only once to prevent breaking from later changes
+	$permalink = strtoupper(substr(sha1($_POST["designation"] . $_POST["description"] . $_POST["exercises"]),0,8));
+	$wod = $con->insert_id;
+	$stmt = $con->prepare('INSERT INTO wod (designation, description, exercises, permalink) VALUES (?,?,?,?)');
+	$stmt->bind_param('ssss', $_POST["designation"], $_POST["description"], $_POST["exercises"], $permalink);
 	$status = $stmt->execute();
 	$stmt->close();
 	// TODO: Get WOD Id
