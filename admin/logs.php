@@ -54,7 +54,7 @@ $stmt->close();
                 <ul class="nav nav-tabs mb-4" id="tabMember" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="main-tab" data-bs-toggle="tab" href="#main" role="tab" aria-controls="main" aria-selected="true">
-                            Logs
+                            API Logs
                         </a>
                     </li>
                     <li class="nav-item">
