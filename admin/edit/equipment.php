@@ -9,10 +9,10 @@ if (!isset($_SESSION['loggedin'])) {
 require_once('./../shared/db.php');
 $con = getConnection();
 
-$stmt = $con->prepare('SELECT id, designation, displayname FROM equipment WHERE id = ?');
+$stmt = $con->prepare('SELECT id, designation, displayname, hashtags FROM equipment WHERE id = ?');
 $stmt->bind_param('i', $_GET["eq"]);
 $stmt->execute();
-$stmt->bind_result($id, $designation, $displayname);
+$stmt->bind_result($id, $designation, $displayname, $hashtags);
 $stmt->fetch();
 $stmt->close();
 
@@ -48,17 +48,19 @@ $stmt->close();
 
                 <div class="row mb-3">
                     <div class="col-12 col-md-6">
-                        <div class="form-group">
-                            <label for="designation">Designation</label>
+                        <div class="mb-3">
+                            <label for="designation" class="form-label">Designation</label>
                             <input type="text" class="form-control" id="designation" name="designation" placeholder="Designation" value="<?= $designation ?>" required maxlength="25">
                         </div>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-12 col-md-6">
-                        <div class="form-group">
-                            <label for="displayname">Displayname</label>
+                        <div class="mb-3">
+                            <label for="displayname" class="form-label">Displayname</label>
                             <input type="text" class="form-control" id="displayname" name="displayname" placeholder="Displayname" value="<?= $displayname ?>" required maxlength="25">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="mb-3">
+                            <label for="hashtags" class="form-label">Hashtags</label>
+                            <textarea class="form-control" id="hashtags" name="hashtags" rows="3"><?= $hashtags ?></textarea>
                         </div>
                     </div>
                 </div>

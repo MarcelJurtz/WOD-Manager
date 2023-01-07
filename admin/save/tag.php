@@ -14,13 +14,13 @@ require_once('./../shared/db.php');
 $con = getConnection();
 
 if($_POST['id'] > 0) {
-	$stmt = $con->prepare('UPDATE tag SET designation = ? WHERE id = ?');
-	$stmt->bind_param('si', $_POST["designation"], $_POST["id"]);
+	$stmt = $con->prepare('UPDATE tag SET designation = ?, hashtags = ? WHERE id = ?');
+	$stmt->bind_param('ssi', $_POST["designation"], $_POST["hashtags"], $_POST["id"]);
 	$status = $stmt->execute();
 	$stmt->close();
 } else {
-	$stmt = $con->prepare('INSERT INTO tag (designation) VALUES (?)');
-	$stmt->bind_param('s', $_POST["designation"]);
+	$stmt = $con->prepare('INSERT INTO tag (designation, hashtags) VALUES (?,?)');
+	$stmt->bind_param('ss', $_POST["designation"], $_POST["hashtags"]);
 	$status = $stmt->execute();
 	$stmt->close();
 }

@@ -9,10 +9,10 @@ if (!isset($_SESSION['loggedin'])) {
 require_once('./../shared/db.php');
 $con = getConnection();
 
-$stmt = $con->prepare('SELECT id, designation, description, exercises FROM wod WHERE id = ?');
+$stmt = $con->prepare('SELECT id, designation, description, exercises, hashtags FROM wod WHERE id = ?');
 $stmt->bind_param('i', $_GET["wod"]);
 $stmt->execute();
-$stmt->bind_result($id, $designation, $description, $exercises);
+$stmt->bind_result($id, $designation, $description, $exercises, $hashtags);
 $stmt->fetch();
 $stmt->close();
 
@@ -95,8 +95,12 @@ $stmt->close();
                         </div>
                     </div>
                     <div class="col-12 col-md-6">
+                        <div class="mb-3">
+                            <label for="hashtags" class="form-label">Hashtags</label>
+                            <textarea class="form-control" id="hashtags" name="hashtags" rows="3"><?= $hashtags ?></textarea>
+                        </div>
                         <h3>Equipment</h3>
-                        <div class="form-group mb-3">
+                        <div class="mb-3">
                             <?php foreach ($equipment as $eq) : ?>
                                 <?php
                                 $checked = $eq['selected'] ? "checked" : "";
@@ -105,7 +109,7 @@ $stmt->close();
                             <?php endforeach; ?>
                         </div>
                         <h3>Tags</h3>
-                        <div class="form-group mb-3">
+                        <div class="mb-3">
                             <?php foreach ($tags as $tag) : ?>
                                 <?php
                                 $checked = $tag['selected'] ? "checked" : "";

@@ -14,13 +14,13 @@ require_once('./../shared/db.php');
 $con = getConnection();
 
 if($_POST['id'] > 0) {
-	$stmt = $con->prepare('UPDATE equipment SET designation = ?, displayname = ? WHERE id = ?');
-	$stmt->bind_param('ssi', $_POST["designation"], $_POST["displayname"], $_POST["id"]);
+	$stmt = $con->prepare('UPDATE equipment SET designation = ?, displayname = ?, hashtags = ? WHERE id = ?');
+	$stmt->bind_param('sssi', $_POST["designation"], $_POST["displayname"], $_POST["hashtags"], $_POST["id"]);
 	$status = $stmt->execute();
 	$stmt->close();
 } else {
 	$stmt = $con->prepare('INSERT INTO equipment (designation, displayname) VALUES (?,?)');
-	$stmt->bind_param('ss', $_POST["designation"], $_POST["displayname"],);
+	$stmt->bind_param('sss', $_POST["designation"], $_POST["displayname"], $_POST["hashtags"]);
 	$status = $stmt->execute();
 	$stmt->close();
 }

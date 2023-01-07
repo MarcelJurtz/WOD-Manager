@@ -9,10 +9,10 @@ if (!isset($_SESSION['loggedin'])) {
 require_once('./../shared/db.php');
 $con = getConnection();
 
-$stmt = $con->prepare('SELECT id, designation FROM tag WHERE id = ?');
+$stmt = $con->prepare('SELECT id, designation, hashtags FROM tag WHERE id = ?');
 $stmt->bind_param('i', $_GET["tag"]);
 $stmt->execute();
-$stmt->bind_result($id, $designation);
+$stmt->bind_result($id, $designation, $hashtags);
 $stmt->fetch();
 $stmt->close();
 
@@ -46,9 +46,15 @@ $stmt->close();
 
                 <div class="row">
                     <div class="col-12 col-md-6">
-                        <div class="form-group">
-                            <label for="designation">Designation</label>
+                        <div class="mb-3">
+                            <label for="designation" class="form-label">Designation</label>
                             <input type="text" class="form-control" id="designation" name="designation" placeholder="Designation" value="<?= $designation ?>" required maxlength="25">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="mb-3">
+                            <label for="hashtags" class="form-label">Hashtags</label>
+                            <textarea class="form-control" id="hashtags" name="hashtags" rows="3"><?= $hashtags ?></textarea>
                         </div>
                     </div>
                 </div>
