@@ -2,6 +2,7 @@
     define ('HASHTAGS_USE_WODS', 1);
     define ('HASHTAGS_USE_TAGS', 1);
     define ('HASHTAGS_USE_EQUIPMENT', 1);
+    define ('HASHTAGS_USE_MOVEMENTS', 1);
     define ('HASHTAG_TOTAL_COUNT', 25);
 
     // DEV

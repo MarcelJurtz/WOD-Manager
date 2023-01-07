@@ -39,6 +39,20 @@ while ($row = $result->fetch_assoc()) {
 $stmt->free_result();
 $stmt->close();
 
+// Movements
+$stmt = $con->prepare('SELECT id, displayname FROM movement ORDER BY id DESC');
+$stmt->execute();
+$result = $stmt->get_result();
+$num_of_rows = $result->num_rows;
+
+$movements = array();
+while ($row = $result->fetch_assoc()) {
+    $movements[] = $row;
+}
+
+$stmt->free_result();
+$stmt->close();
+
 // Tags
 $stmt = $con->prepare('SELECT id, designation FROM tag ORDER BY id DESC');
 $stmt->execute();
@@ -75,7 +89,7 @@ function printMenuBar($editUrl) {
     <div class="content">
         <div class="p-2 container-fluid card">
             <div class="card-body">
-                <h2 class="card-title mb-3">Manage WODs, Equipment & Tags</h2>
+                <h2 class="card-title mb-3">Manage WODs, Equipment, Movements, & Tags</h2>
                 <ul class="nav nav-tabs mb-4" id="tabMember" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="main-tab" data-bs-toggle="tab" href="#main" role="tab" aria-controls="main" aria-selected="true">
@@ -85,6 +99,11 @@ function printMenuBar($editUrl) {
                     <li class="nav-item">
                         <a class="nav-link" id="equipment-tab" data-bs-toggle="tab" href="#equipment" role="tab" aria-controls="equipment" aria-selected="false">
                             Equipment
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="movement-tab" data-bs-toggle="tab" href="#movement" role="tab" aria-controls="movement" aria-selected="false">
+                            Movements
                         </a>
                     </li>
                     <li class="nav-item">
@@ -147,6 +166,32 @@ function printMenuBar($editUrl) {
                                         <td><?= $eq['displayname']; ?></td>
                                         <td>
                                             <a href="/<?php echo ROOT_FOLDER ?>/admin/edit/equipment.php?eq=<?php echo $eq['id']; ?>">
+                                                <i class="fas fa-pencil-alt"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Movement -->
+                    <div class="tab-pane fade" id="movement" role="tabpanel" aria-labelledby="movement-tab">
+                        <?php printMenuBar("./edit/movement.php") ?>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Display Name</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($movements as $move) : ?>
+                                    <tr>
+                                        <td><?= $move['id']; ?></td>
+                                        <td><?= $move['displayname']; ?></td>
+                                        <td>
+                                            <a href="/<?php echo ROOT_FOLDER ?>/admin/edit/movement.php?move=<?php echo $eq['id']; ?>">
                                                 <i class="fas fa-pencil-alt"></i>
                                             </a>
                                         </td>

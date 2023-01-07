@@ -35,6 +35,25 @@ if($_POST['id'] > 0) {
 	$stmt->close();
 }
 
+// Update movements
+$stmt = $con->prepare('DELETE FROM wod_movement WHERE wod_id = ?');
+$stmt->bind_param('i', $_POST["id"]);
+$status = $stmt->execute();
+$stmt->close();
+
+if (isset($_POST['movement'])) {
+	$template = 'INSERT INTO wod_movement (wod_id, movement_id) VALUES ';
+
+	foreach ($_POST['movement'] as &$id) {
+		$template = $template . '(' . $wod . ', ' . $id . '),';
+	}
+
+	$stmt = $con->prepare(rtrim($template, ","));
+	$status = $stmt->execute();
+	$stmt->close();
+}
+
+
 // Update equipment
 $stmt = $con->prepare('DELETE FROM wod_equipment WHERE wod_id = ?');
 $stmt->bind_param('i', $_POST["id"]);

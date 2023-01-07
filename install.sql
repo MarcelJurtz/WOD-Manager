@@ -47,6 +47,22 @@ CREATE TABLE wod_equipment(
   FOREIGN KEY (equipment_id) REFERENCES equipment(id)
 );
 
+CREATE TABLE movement(
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  designation VARCHAR(25),
+  displayname VARCHAR(75),
+  hashtags VARCHAR(65535)
+);
+
+CREATE TABLE wod_movement(
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  wod_id INT NOT NULL,
+  movement_id INT NOT NULL,
+  FOREIGN KEY (wod_id) REFERENCES wod(id),
+  FOREIGN KEY (movement_id) REFERENCES movement(id)
+);
+
+
 CREATE TABLE tag(
   id INT PRIMARY KEY AUTO_INCREMENT,
   designation VARCHAR(25),

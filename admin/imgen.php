@@ -34,20 +34,25 @@ $stmt = $con->prepare("SELECT GROUP_CONCAT(DISTINCT
   ',',
   CASE WHEN ? THEN tag.hashtags ELSE NULL END,
   ',',
-  CASE WHEN ? THEN equipment.hashtags ELSE NULL END
+  CASE WHEN ? THEN equipment.hashtags ELSE NULL END,
+  ',',
+  CASE WHEN ? THEN movement.hashtags ELSE NULL END
 ) AS tags
 FROM wod
 JOIN wod_tag ON wod.id = wod_tag.wod_id
 JOIN tag ON wod_tag.tag_id = tag.id
 JOIN wod_equipment ON wod.id = wod_equipment.wod_id
 JOIN equipment ON wod_equipment.equipment_id = equipment.id
+JOIN wod_movement ON wod.id = wod_movement.wod_id
+JOIN movement ON wod_movement.movement_id = movement.id
 WHERE wod.id = ?");
 
 $useWods = HASHTAGS_USE_WODS;
 $useTags = HASHTAGS_USE_TAGS;
 $useEquipment = HASHTAGS_USE_EQUIPMENT;
+$useMovements = HASHTAGS_USE_MOVEMENTS;
 
-$stmt->bind_param('iiii', $useWods, $useTags, $useEquipment, $id);
+$stmt->bind_param('iiiii', $useWods, $useTags, $useEquipment, $useMovements, $id);
 $stmt->execute();
 $stmt->bind_result($hashtags);
 $stmt->fetch();
