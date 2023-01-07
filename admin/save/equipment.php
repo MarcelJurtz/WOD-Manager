@@ -19,7 +19,7 @@ if($_POST['id'] > 0) {
 	$status = $stmt->execute();
 	$stmt->close();
 } else {
-	$stmt = $con->prepare('INSERT INTO equipment (designation, displayname) VALUES (?,?)');
+	$stmt = $con->prepare('INSERT INTO equipment (designation, displayname, hashtags) VALUES (?,?,?)');
 	$stmt->bind_param('sss', $_POST["designation"], $_POST["displayname"], $_POST["hashtags"]);
 	$status = $stmt->execute();
 	$stmt->close();

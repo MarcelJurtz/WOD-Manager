@@ -62,7 +62,7 @@ $uniqueHashtags = array_slice($uniqueHashtags, 0, HASHTAG_TOTAL_COUNT);
 //$hashtags = getHashtagString($wod["keywords"]) . ' ' . getRandomDefaultHashtags();
 $prefix = "";
 // TODO Move to config, add hashtags back to logic and base off of exercises
-$suffix = "Follow @Wodai.ly on Instagram for more workouts!\n\n";
+$suffix = "Follow @Wodai.ly on Instagram for more workouts!";
 $src = "Background-images are from unsplash.com";
 
 $params = '?wod=' . $permalink;
@@ -74,7 +74,12 @@ $img_url = 'image.php' . $params;
 
 function hashtag(&$value) 
 { 
-    $value = '#' . trim($value); 
+  $value = '#' . trim($value); 
+}
+
+function linebreak($text) {
+  $text = str_replace(', ', ',', $text); // trim
+  return str_replace(',', ',&#013;&#010;', $text);
 }
 
 ?>
@@ -109,7 +114,7 @@ function hashtag(&$value)
           <div class="d-flex">
             <img id="preview" src="<?php echo $img_url; ?>" class="card-img-top bg-white rounded-0" style=" background:url(/workouts/assets/img/preview.gif) center/50% no-repeat; " width="450" height="450" alt="image with workout instructions">
             <textarea id="details" class="form-control" rows="8" data-permalink="<?php echo $permalink ?>">
-              <?php echo $prefix . $description . ":\n\n" . $exercises . "\n\n" . implode(' ', $uniqueHashtags) . "\n\n" . $src ?>
+              <?php echo $prefix . $description . ":\n\n" . linebreak($exercises) . "\n\n" . $suffix . "\n\n" . implode(' ', $uniqueHashtags) . "\n\n" . $src ?>
             </textarea>
           </div>
         </div>
