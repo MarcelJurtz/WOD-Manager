@@ -28,10 +28,10 @@ if($_POST['id'] > 0) {
 
 	// Generate permalink only once to prevent breaking from later changes
 	$permalink = strtoupper(substr(sha1($_POST["designation"] . $_POST["description"] . $_POST["exercises"]),0,8));
-	$wod = $con->insert_id;
 	$stmt = $con->prepare('INSERT INTO wod (designation, description, exercises, hashtags, permalink) VALUES (?,?,?,?,?)');
 	$stmt->bind_param('sssss', $_POST["designation"], $_POST["description"], $_POST["exercises"], $_POST["hashtags"], $permalink);
 	$status = $stmt->execute();
+	$wod = $con->insert_id;
 	$stmt->close();
 }
 
@@ -80,7 +80,7 @@ $status = $stmt->execute();
 $stmt->close();
 
 if (isset($_POST['tags'])) {
-	$template = 'INSERT INTO wod_tag (wod_id, tag_id) VALUES '; // TODO SqlInjection
+	$template = 'INSERT INTO wod_tag (wod_id, tag_id) VALUES ';
 
 	foreach ($_POST['tags'] as &$id) {
 		$template = $template . '(' . $wod . ', ' . $id . '),';
