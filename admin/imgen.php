@@ -23,12 +23,41 @@ if(isset($_GET['id'])) {
   $stmt = $con->prepare($query);
 }
 
-// Get random wod from DB
-
 $stmt->execute();
 $stmt->bind_result($id, $designation, $description, $exercises, $permalink);
 $stmt->fetch();
 $stmt->close();
+
+// Get hashtags for wod, tags and equipment with respecting configuration
+$stmt = $con->prepare("SELECT GROUP_CONCAT(DISTINCT 
+  CASE WHEN ? THEN wod.hashtags ELSE NULL END,
+  ',',
+  CASE WHEN ? THEN tag.hashtags ELSE NULL END,
+  ',',
+  CASE WHEN ? THEN equipment.hashtags ELSE NULL END
+) AS tags
+FROM wod
+JOIN wod_tag ON wod.id = wod_tag.wod_id
+JOIN tag ON wod_tag.tag_id = tag.id
+JOIN wod_equipment ON wod.id = wod_equipment.wod_id
+JOIN equipment ON wod_equipment.equipment_id = equipment.id
+WHERE wod.id = ?");
+
+$useWods = HASHTAGS_USE_WODS;
+$useTags = HASHTAGS_USE_TAGS;
+$useEquipment = HASHTAGS_USE_EQUIPMENT;
+
+$stmt->bind_param('iiii', $useWods, $useTags, $useEquipment, $id);
+$stmt->execute();
+$stmt->bind_result($hashtags);
+$stmt->fetch();
+$stmt->close();
+
+// Filter hashtags
+$uniqueHashtags = array_unique(explode(',', $hashtags));
+array_walk($uniqueHashtags, 'hashtag');
+shuffle($uniqueHashtags);
+$uniqueHashtags = array_slice($uniqueHashtags, 0, HASHTAG_TOTAL_COUNT);
 
 //$hashtags = getHashtagString($wod["keywords"]) . ' ' . getRandomDefaultHashtags();
 $prefix = "";
@@ -41,6 +70,13 @@ $params .= '&designation=' . $designation;
 $params .= '&description=' . $description;
 $params .= '&exercises=' . $exercises;
 $img_url = 'image.php' . $params;
+
+
+function hashtag(&$value) 
+{ 
+    $value = '#' . trim($value); 
+}
+
 ?>
 
 <?php include('./shared/head.inc.php') ?>
@@ -73,7 +109,7 @@ $img_url = 'image.php' . $params;
           <div class="d-flex">
             <img id="preview" src="<?php echo $img_url; ?>" class="card-img-top bg-white rounded-0" style=" background:url(/workouts/assets/img/preview.gif) center/50% no-repeat; " width="450" height="450" alt="image with workout instructions">
             <textarea id="details" class="form-control" rows="8" data-permalink="<?php echo $permalink ?>">
-              <?php echo $prefix . $description . ":\n\n" . $exercises . "\n\n" . $suffix . "\n\n" . $src ?>
+              <?php echo $prefix . $description . ":\n\n" . $exercises . "\n\n" . implode(' ', $uniqueHashtags) . "\n\n" . $src ?>
             </textarea>
           </div>
         </div>
