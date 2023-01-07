@@ -5,6 +5,7 @@ require_once('db.php');
 $con = getConnection();
 
 if ( !isset($_POST['username'], $_POST['password']) ) {
+    logLogin($con, 0);
 	exit('Please fill both the username and password fields!');
 }
 

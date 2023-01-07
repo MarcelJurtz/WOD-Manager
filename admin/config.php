@@ -12,8 +12,4 @@
     define('DB_NAME', 'wods');
 
     define('ROOT_FOLDER', 'workouts');
-
-    // PROD
-
-    // define('ROOT_FOLDER', 'api');
 ?>

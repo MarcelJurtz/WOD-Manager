@@ -27,8 +27,8 @@ CREATE TABLE wod(
   created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   designation VARCHAR(100),
   description VARCHAR(500),
-  exercises VARCHAR(65535),
-  hashtags VARCHAR(65535),
+  exercises TEXT,
+  hashtags TEXT,
   permalink VARCHAR(36)
 );
 
@@ -36,7 +36,7 @@ CREATE TABLE equipment(
   id INT PRIMARY KEY AUTO_INCREMENT,
   designation VARCHAR(25),
   displayname VARCHAR(75),
-  hashtags VARCHAR(65535)
+  hashtags TEXT
 );
 
 CREATE TABLE wod_equipment(
@@ -51,7 +51,7 @@ CREATE TABLE movement(
   id INT PRIMARY KEY AUTO_INCREMENT,
   designation VARCHAR(25),
   displayname VARCHAR(75),
-  hashtags VARCHAR(65535)
+  hashtags TEXT
 );
 
 CREATE TABLE wod_movement(
@@ -66,7 +66,7 @@ CREATE TABLE wod_movement(
 CREATE TABLE tag(
   id INT PRIMARY KEY AUTO_INCREMENT,
   designation VARCHAR(25),
-  hashtags VARCHAR(65535)
+  hashtags TEXT
 );
 
 CREATE TABLE wod_tag(

@@ -35,10 +35,10 @@ $stmt->close();
                 <div class="row">
                     <div class="col-12">
                         <div class="d-flex justify-content-between border-bottom mb-3">
-                            <h2><?= isset($designation) ? $designation : "Neuer Tag" ?></h2>
+                            <h2><?= isset($designation) ? $designation : "New Tag" ?></h2>
                             <div>
                                 <a class="btn btn-outline-danger" href="./../index.php">Cancel</a>
-                                <input class="btn btn-outline-success" type="submit" value="Speichern">
+                                <input class="btn btn-outline-success" type="submit" value="Save">
                             </div>
                         </div>
                     </div>

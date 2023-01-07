@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html>
-
 <?php
 
 session_start();
@@ -88,6 +85,9 @@ function linebreak($text) {
 }
 
 ?>
+
+<!DOCTYPE html>
+<html>
 
 <?php include('./shared/head.inc.php') ?>
 
