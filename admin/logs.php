@@ -23,16 +23,16 @@ while ($row = $result->fetch_assoc()) {
 $stmt->free_result();
 $stmt->close();
 
-// IPlogs
+// Login Logs
 
-$stmt = $con->prepare('SELECT count(*) as ct, ip FROM log GROUP BY ip '); // ORDER BY cd DESC LIMIT 100
+$stmt = $con->prepare('SELECT created, ip, username, success FROM login_log ORDER BY ID DESC');
 $stmt->execute();
 $result = $stmt->get_result();
 $num_of_rows = $result->num_rows;
 
-$iplogs = array();
+$loginlogs = array();
 while ($row = $result->fetch_assoc()) {
-    $iplogs[] = $row;
+    $loginlogs[] = $row;
 }
 
 $stmt->free_result();
@@ -59,7 +59,7 @@ $stmt->close();
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">
-                            Logs (IP)
+                            Logins
                         </a>
                     </li>
                 </ul>
@@ -89,20 +89,34 @@ $stmt->close();
                             </tbody>
                         </table>
                     </div>
-                    <!-- IP grouped Logs -->
+                    <!-- Logins -->
                     <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="membership-tab">
                         <table class="table">
                             <thead>
                                 <tr>
+                                    <th scope="col">Timestamp</th>
                                     <th scope="col">IP</th>
-                                    <th scope="col"># Zugriffe</th>
+                                    <th scope="col">Username</th>
+                                    <th scope="col" class="text-center">Success</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($iplogs as $log) : ?>
+                                <?php foreach ($loginlogs as $loginlog) : ?>
                                     <tr>
-                                        <td><?= $log['ip']; ?></td>
-                                        <td><?= $log['ct']; ?></td>
+                                        <td><?= $loginlog['created']; ?></td>
+                                        <td><?= $loginlog['ip']; ?></td>
+                                        <td><?= $loginlog['username']; ?></td>
+                                        <td class="text-center">
+                                            <?php 
+                                                if($loginlog['success'] == 1) 
+                                                { 
+                                                    echo '<i class="fa-solid fa-check text-success"></i>'; 
+                                                } else 
+                                                { 
+                                                    echo '<i class="fa-solid fa-xmark text-danger"></i>'; 
+                                                } 
+                                            ?>
+                                        </td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>

@@ -1,7 +1,9 @@
 <?php
 
+// TODO
+
 // error_reporting(E_ALL);
-require_once('./admin/db.php');
+require_once('./admin/shared/db.php');
 
 if (!isset($_GET['name']) || empty($_GET['name']) || !isset($_GET['token']) || empty($_GET['token'])) {
   http_response_code(404);

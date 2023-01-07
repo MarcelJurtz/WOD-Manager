@@ -18,6 +18,7 @@ CREATE TABLE login_log(
   id INT PRIMARY KEY AUTO_INCREMENT,
   created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   username VARCHAR(50),
+  success TINYINT DEFAULT 0,
   ip VARCHAR(45)
 );
 
@@ -27,13 +28,15 @@ CREATE TABLE wod(
   designation VARCHAR(100),
   description VARCHAR(500),
   exercises VARCHAR(65535),
+  hashtags VARCHAR(65535),
   permalink VARCHAR(36)
 );
 
 CREATE TABLE equipment(
   id INT PRIMARY KEY AUTO_INCREMENT,
   designation VARCHAR(25),
-  displayname VARCHAR(75)
+  displayname VARCHAR(75),
+  hashtags VARCHAR(65535)
 );
 
 CREATE TABLE wod_equipment(
@@ -46,7 +49,8 @@ CREATE TABLE wod_equipment(
 
 CREATE TABLE tag(
   id INT PRIMARY KEY AUTO_INCREMENT,
-  designation VARCHAR(25)
+  designation VARCHAR(25),
+  hashtags VARCHAR(65535)
 );
 
 CREATE TABLE wod_tag(
