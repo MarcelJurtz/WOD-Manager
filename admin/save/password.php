@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['loggedin'])) {
-	header('Location: index.html');
+	header('Location: ./../index.html');
 	exit;
 }
 
@@ -13,7 +13,7 @@ if (!isset($_POST['newpassword']) || !isset($_POST['newpassword2']) || $_POST['n
 	exit('Passwords don\'t match');
 }
 
-require_once('db.php');
+require_once('./../shared/db.php');
 $con = getConnection();
 
 $stmt = $con->prepare('UPDATE accounts SET password = ? WHERE id = ?');
@@ -22,5 +22,5 @@ $stmt->bind_param('si', $pw, $_POST["id"]);
 $status = $stmt->execute();
 $stmt->close();
 
-header('Location: profile.php');
+header('Location: ./../index.php');
 ?>
