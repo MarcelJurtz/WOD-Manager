@@ -191,7 +191,7 @@ function printMenuBar($editUrl) {
                                         <td><?= $move['id']; ?></td>
                                         <td><?= $move['displayname']; ?></td>
                                         <td>
-                                            <a href="/<?php echo ROOT_FOLDER ?>/admin/edit/movement.php?move=<?php echo $eq['id']; ?>">
+                                            <a href="/<?php echo ROOT_FOLDER ?>/admin/edit/movement.php?move=<?php echo $move['id']; ?>">
                                                 <i class="fas fa-pencil-alt"></i>
                                             </a>
                                         </td>
