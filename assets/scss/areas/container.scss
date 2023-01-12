@@ -1,0 +1,27 @@
+@media (max-width: 950px) {
+    .container-sm {
+        margin: auto;
+        width: 75%;
+    }
+}
+
+@media (min-width: 950px) {
+    .container-sm {
+        margin: auto;
+        width: 65%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container-sm {
+        margin: auto;
+        width: 50%;
+    }
+}
+
+@media (min-width: 1500px) {
+    .container-sm {
+        margin: auto;
+        width: 25%;
+    }
+}

@@ -12,7 +12,7 @@ require_once('./shared/icons.inc.php');
 
 $con = getConnection();
 
-if(isset($_GET['id'])) {
+if (isset($_GET['id'])) {
   $stmt = $con->prepare('SELECT id, designation, description, exercises, permalink FROM wod WHERE id = ?');
   $stmt->bind_param('i', $_GET['id']);
 } else {
@@ -74,12 +74,13 @@ $params .= '&exercises=' . $exercises;
 $img_url = 'image.php' . $params;
 
 
-function hashtag(&$value) 
-{ 
-  $value = '#' . trim($value); 
+function hashtag(&$value)
+{
+  $value = '#' . trim($value);
 }
 
-function linebreak($text) {
+function linebreak($text)
+{
   $text = str_replace(', ', ',', $text); // trim
   return str_replace(',', ',&#013;&#010;', $text);
 }
@@ -93,35 +94,32 @@ function linebreak($text) {
 
 <body class="loggedin">
   <?php
-    include('./shared/menu.inc.php');
+  include('./shared/menu.inc.php');
   ?>
-  <div class="content">
-    <div class="p-2 container-fluid card">
-      <div class="card-body">
-
-        <div class="row">
-          <div class="col-12">
-            <div class="d-flex justify-content-between border-bottom mb-3">
-              <h2 class="card-title mb-3">Image-Generator</h2>
-              <div>
-                <a href="JavaScript:Void(0);" title="Copy Caption" id="copy" class="btn btn-outline-secondary text-decoration-none">
-                  <span id="btn-copy-init">Copy Text <?php echo ICON_CLIPBOARD ?></span>
-                  <span id="btn-copy-copied" class="d-none">Copied! <?php echo ICON_CHECK ?></span>
-                </a>
-                <button class="btn btn-outline-primary" id="get-random">Other WOD</button>
-                <button class="btn btn-outline-secondary" id="replace-bg">Replace BG</button>
-              </div>
+  <div class="container card mt-3">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12">
+          <div class="d-flex justify-content-between border-bottom mb-3">
+            <h2 class="card-title mb-3">Image-Generator</h2>
+            <div>
+              <a href="JavaScript:Void(0);" title="Copy Caption" id="copy" class="btn btn-outline-secondary text-decoration-none">
+                <span id="btn-copy-init">Copy Text <?php echo ICON_CLIPBOARD ?></span>
+                <span id="btn-copy-copied" class="d-none">Copied! <?php echo ICON_CHECK ?></span>
+              </a>
+              <button class="btn btn-outline-primary" id="get-random">Other WOD</button>
+              <button class="btn btn-outline-secondary" id="replace-bg">Replace BG</button>
             </div>
           </div>
         </div>
+      </div>
 
-        <div class="row">
-          <div class="d-flex">
-            <img id="preview" src="<?php echo $img_url; ?>" class="card-img-top bg-white rounded-0" style=" background:url(/workouts/assets/img/preview.gif) center/50% no-repeat; " width="450" height="450" alt="image with workout instructions">
-            <textarea id="details" class="form-control" rows="8" data-permalink="<?php echo $permalink ?>">
+      <div class="row">
+        <div class="d-flex">
+          <img id="preview" src="<?php echo $img_url; ?>" class="bg-white rounded-0" style=" background:url(/workouts/assets/img/preview.gif) center/50% no-repeat; " width="450" height="450" alt="image with workout instructions">
+          <textarea id="details" class="form-control" rows="8" data-permalink="<?php echo $permalink ?>">
               <?php echo $prefix . $description . ":\n\n" . linebreak($exercises) . "\n\n" . $suffix . "\n\n" . implode(' ', $uniqueHashtags) . "\n\n" . $src ?>
             </textarea>
-          </div>
         </div>
       </div>
     </div>
