@@ -115,6 +115,19 @@ table a {
   height: 450px;
 }
 
+.footer {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.checklist-container {
+  max-height: 200px;
+  overflow-y: scroll;
+  border-radius: 0.5rem 0 0 0.5rem;
+  border: 1px solid var(--bs-border-color-translucent);
+  padding: 1rem;
+}
+
 * {
   box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, "segoe ui", roboto, oxygen, ubuntu, cantarell, "fira sans", "droid sans", "helvetica neue", Arial, sans-serif;

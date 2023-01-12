@@ -2,7 +2,7 @@
     $root = '/workouts/assets';
 ?>
 
-<div class="container mb-3 mx-auto small text-center bg-transparent" style="max-width:450px;">
+<div class="container mx-auto small text-center bg-transparent footer" style="max-width:450px;">
     Made with ❤️ by <a class="text-dark" href="https://mjurtz.com"><b> Marcel Jurtz</b></a>
 </div>
 

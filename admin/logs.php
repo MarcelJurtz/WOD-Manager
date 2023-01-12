@@ -121,9 +121,8 @@ $stmt->close();
                 </div>
             </div>
         </div>
-
-        <?php include('./shared/footer.inc.php'); ?>
     </div>
+    <?php include('./shared/footer.inc.php'); ?>
 </body>
 
 </html>

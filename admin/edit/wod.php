@@ -114,7 +114,7 @@ $stmt->close();
                 </div>
                 <div class="col-12 col-md-6">
                     <h3>Movements</h3>
-                    <div class="mb-3">
+                    <div class="mb-3 checklist-container">
                         <?php foreach ($movements as $move) : ?>
                             <?php
                             $checked = $move['selected'] ? "checked" : "";
@@ -123,7 +123,7 @@ $stmt->close();
                         <?php endforeach; ?>
                     </div>
                     <h3>Equipment</h3>
-                    <div class="mb-3">
+                    <div class="mb-3 checklist-container">
                         <?php foreach ($equipment as $eq) : ?>
                             <?php
                             $checked = $eq['selected'] ? "checked" : "";
@@ -132,7 +132,7 @@ $stmt->close();
                         <?php endforeach; ?>
                     </div>
                     <h3>Tags</h3>
-                    <div class="mb-3">
+                    <div class="mb-3 checklist-container">
                         <?php foreach ($tags as $tag) : ?>
                             <?php
                             $checked = $tag['selected'] ? "checked" : "";
