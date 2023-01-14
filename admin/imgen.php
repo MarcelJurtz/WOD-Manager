@@ -58,6 +58,10 @@ $stmt->fetch();
 $stmt->close();
 
 // Filter hashtags
+if(HASHTAGS_USE_DEFAULTS) {
+  $hashtags .= ', ' . DEFAULT_HASHTAGS;
+}
+
 $uniqueHashtags = array_unique(explode(',', $hashtags));
 array_walk($uniqueHashtags, 'hashtag');
 shuffle($uniqueHashtags);
