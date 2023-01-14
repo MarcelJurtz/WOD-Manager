@@ -27,7 +27,7 @@ $stmt->close();
     <?php
     include('./../shared/menu.inc.php');
     ?>
-    <div class="container card mt-3">
+    <div class="container card my-3">
         <form action="./../save/tag.php" method="post">
             <input type="hidden" name="id" value="<?= $id ?>">
 

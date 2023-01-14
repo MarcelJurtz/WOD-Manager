@@ -87,9 +87,9 @@ function printMenuBar($editUrl)
         include('./shared/menu.inc.php');
         ?>
     </nav>
-    <div class="container card mt-3 flex-grow-1 overflow-auto ">
+    <div class="container card my-3 flex-grow-1 overflow-auto ">
         <div class="card-body">
-            <h2 class="card-title mb-3">Manage WODs, Equipment, Movements, & Tags</h2>
+            <h2 class="card-title mb-3">Overview</h2>
             <ul class="nav nav-tabs mb-4" id="tabMember" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" id="main-tab" data-bs-toggle="tab" href="#main" role="tab" aria-controls="main" aria-selected="true">
@@ -120,20 +120,20 @@ function printMenuBar($editUrl)
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Created</th>
                                 <th scope="col">Designation</th>
                                 <th scope="col">Description</th>
                                 <th scope="col">Permalink</th>
+                                <th class="d-none d-lg-block" scope="col">Created</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($wods as $wod) : ?>
                                 <tr data-edit='edit/wod.php?wod=<?= $wod['id'] ?>' data-preview='imgen.php?id=<?= $wod['id'] ?>'>
                                     <td><?= $wod['id']; ?></td>
-                                    <td class="text-nowrap"><?= $wod['created']; ?></td>
                                     <td class="break"><?= $wod['designation']; ?></td>
                                     <td class="break"><?= $wod['description']; ?></td>
                                     <td><?= $wod['permalink']; ?></td>
+                                    <td class="text-nowrap d-none d-lg-block"><?= $wod['created']; ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -174,11 +174,6 @@ function printMenuBar($editUrl)
                                 <tr data-edit='edit/movement.php?move=<?= $move['id'] ?>'>
                                     <td><?= $move['id']; ?></td>
                                     <td><?= $move['displayname']; ?></td>
-                                    <td>
-                                        <a href="/<?php echo ROOT_FOLDER ?>/admin/edit/movement.php?move=<?php echo $move['id']; ?>">
-                                            <i class="fas fa-pencil-alt"></i>
-                                        </a>
-                                    </td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>

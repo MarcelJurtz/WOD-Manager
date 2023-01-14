@@ -56,18 +56,17 @@
   width: 100%;
   border: 0;
 }
-.navtop div {
-  display: flex;
+.navtop div.desktop {
   margin: 0 auto;
   width: 1000px;
   height: 100%;
 }
-.navtop div h1,
-.navtop div a {
+.navtop div.desktop h1,
+.navtop div.desktop a {
   display: inline-flex;
   align-items: center;
 }
-.navtop div h1 {
+.navtop div.desktop h1 {
   flex: 1;
   font-size: 24px;
   padding: 0;
@@ -75,16 +74,16 @@
   color: #eaebed;
   font-weight: normal;
 }
-.navtop div a {
+.navtop div.desktop a {
   padding: 0 20px;
   text-decoration: none;
   color: #c1c4c8;
   font-weight: bold;
 }
-.navtop div a i {
+.navtop div.desktop a i {
   padding: 2px 8px 0 0;
 }
-.navtop div a:hover {
+.navtop div.desktop a:hover {
   color: #eaebed;
 }
 

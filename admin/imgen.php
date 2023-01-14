@@ -102,12 +102,12 @@ function linebreak($text)
   <?php
   include('./shared/menu.inc.php');
   ?>
-  <div class="container card mt-3">
+  <div class="container card my-3">
     <div class="card-body">
       <div class="row">
         <div class="col-12">
-          <div class="d-flex justify-content-between border-bottom mb-3">
-            <h2 class="card-title mb-3">Image-Generator</h2>
+          <div class="d-md-flex justify-content-between border-bottom mb-3 pb-3">
+            <h2 class="card-title">Image-Generator</h2>
             <div>
               <a href="JavaScript:Void(0);" title="Copy Caption" id="copy" class="btn btn-outline-secondary text-decoration-none">
                 <span id="btn-copy-init">Copy Text <?php echo ICON_CLIPBOARD ?></span>

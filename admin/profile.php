@@ -24,7 +24,7 @@ $stmt->close();
 	<nav class="navtop">
 		<?php include('./shared/menu.inc.php'); ?>
 	</nav>
-	<div class="container card mt-3">
+	<div class="container card my-3">
 		<form action="./save/password.php" method="post">
 
 			<input type="hidden" name="id" value="<?= $id ?>">

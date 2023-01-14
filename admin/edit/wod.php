@@ -78,7 +78,7 @@ $stmt->close();
 
 <body class="loggedin d-flex flex-column h-100">
     <?php include('./../shared/menu.inc.php'); ?>
-    <div class="container card mt-3 flex-grow-1 overflow-auto">
+    <div class="container card my-3 flex-grow-1 overflow-auto">
         <form action="./../save/wod.php" method="post">
             <input type="hidden" name="id" value="<?= $id ?>">
 

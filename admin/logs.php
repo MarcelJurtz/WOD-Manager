@@ -47,7 +47,7 @@ $stmt->close();
 <body class="loggedin">
     <?php include('./shared/menu.inc.php'); ?>
 
-    <div class="container card mt-3">
+    <div class="container card my-3">
         <div class="card-body">
             <h2 class="card-title mb-3">Logs</h2>
             <ul class="nav nav-tabs mb-4" id="tabMember" role="tablist">
