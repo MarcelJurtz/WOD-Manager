@@ -26,30 +26,32 @@ $stmt->fetch();
 $stmt->close();
 
 // Get hashtags for wod, tags and equipment with respecting configuration
-$stmt = $con->prepare("SELECT GROUP_CONCAT(DISTINCT 
-  CASE WHEN ? THEN wod.hashtags ELSE NULL END,
-  ',',
-  CASE WHEN ? THEN tag.hashtags ELSE NULL END,
-  ',',
-  CASE WHEN ? THEN equipment.hashtags ELSE NULL END,
-  ',',
-  CASE WHEN ? THEN movement.hashtags ELSE NULL END
-) AS tags
-FROM wod
-JOIN wod_tag ON wod.id = wod_tag.wod_id
-JOIN tag ON wod_tag.tag_id = tag.id
-JOIN wod_equipment ON wod.id = wod_equipment.wod_id
-JOIN equipment ON wod_equipment.equipment_id = equipment.id
-JOIN wod_movement ON wod.id = wod_movement.wod_id
-JOIN movement ON wod_movement.movement_id = movement.id
-WHERE wod.id = ?");
+$stmt = $con->prepare("SELECT GROUP_CONCAT(tags SEPARATOR ',') as tags
+FROM (
+    SELECT IFNULL(CASE WHEN ? THEN wod.hashtags ELSE NULL END, '') as tags FROM wod WHERE wod.id = ?
+    UNION
+    SELECT IFNULL(CASE WHEN ? THEN tag.hashtags ELSE NULL END, '') as tags FROM wod
+    LEFT JOIN wod_tag ON wod.id = wod_tag.wod_id
+    LEFT JOIN tag ON wod_tag.tag_id = tag.id
+    WHERE wod.id = ?
+    UNION
+    SELECT IFNULL(CASE WHEN ? THEN equipment.hashtags ELSE NULL END, '') as tags FROM wod
+    LEFT JOIN wod_equipment ON wod.id = wod_equipment.wod_id
+    LEFT JOIN equipment ON wod_equipment.equipment_id = equipment.id
+    WHERE wod.id = ?
+    UNION
+    SELECT IFNULL(CASE WHEN ? THEN movement.hashtags ELSE NULL END, '') as tags FROM wod
+    LEFT JOIN wod_movement ON wod.id = wod_movement.wod_id
+    LEFT JOIN movement ON wod_movement.movement_id = movement.id
+    WHERE wod.id = ?
+) as temp");
 
 $useWods = HASHTAGS_USE_WODS;
 $useTags = HASHTAGS_USE_TAGS;
 $useEquipment = HASHTAGS_USE_EQUIPMENT;
 $useMovements = HASHTAGS_USE_MOVEMENTS;
 
-$stmt->bind_param('iiiii', $useWods, $useTags, $useEquipment, $useMovements, $id);
+$stmt->bind_param('iiiiiiii', $useWods, $id, $useTags, $id, $useEquipment, $id, $useMovements, $id);
 $stmt->execute();
 $stmt->bind_result($hashtags);
 $stmt->fetch();
