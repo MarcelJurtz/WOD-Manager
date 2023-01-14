@@ -81,13 +81,13 @@ function printMenuBar($editUrl)
 
 <?php include('./shared/head.inc.php') ?>
 
-<body class="loggedin">
+<body class="loggedin d-flex flex-column h-100">
     <nav class="navtop">
         <?php
         include('./shared/menu.inc.php');
         ?>
     </nav>
-    <div class="container card mt-3">
+    <div class="container card mt-3 flex-grow-1 overflow-auto">
         <div class="card-body">
             <h2 class="card-title mb-3">Manage WODs, Equipment, Movements, & Tags</h2>
             <ul class="nav nav-tabs mb-4" id="tabMember" role="tablist">

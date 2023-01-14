@@ -136,4 +136,8 @@ table a {
   -moz-osx-font-smoothing: grayscale;
 }
 
+html {
+  height: 100%;
+}
+
 /*# sourceMappingURL=stylesheet.css.map */
