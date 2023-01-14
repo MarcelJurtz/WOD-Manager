@@ -120,6 +120,22 @@ table a {
   margin-bottom: 1rem;
 }
 
+.hover-menu {
+  position: relative;
+}
+
+.hover-menu-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--bs-primary);
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
 .checklist-container {
   max-height: 18vh;
   overflow-y: scroll;

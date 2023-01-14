@@ -81,13 +81,13 @@ function printMenuBar($editUrl)
 
 <?php include('./shared/head.inc.php') ?>
 
-<body class="loggedin d-flex flex-column h-100">
+<body class="loggedin d-flex flex-column h-100 hover-menu">
     <nav class="navtop">
         <?php
         include('./shared/menu.inc.php');
         ?>
     </nav>
-    <div class="container card mt-3 flex-grow-1 overflow-auto">
+    <div class="container card mt-3 flex-grow-1 overflow-auto ">
         <div class="card-body">
             <h2 class="card-title mb-3">Manage WODs, Equipment, Movements, & Tags</h2>
             <ul class="nav nav-tabs mb-4" id="tabMember" role="tablist">
@@ -116,7 +116,7 @@ function printMenuBar($editUrl)
                 <!-- WODs -->
                 <div class="tab-pane fade active show" id="main" role="tabpanel" aria-labelledby="main-tab">
                     <?php printMenuBar("./edit/wod.php") ?>
-                    <table class="table">
+                    <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -124,25 +124,16 @@ function printMenuBar($editUrl)
                                 <th scope="col">Designation</th>
                                 <th scope="col">Description</th>
                                 <th scope="col">Permalink</th>
-                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($wods as $wod) : ?>
-                                <tr>
+                                <tr data-edit='edit/wod.php?wod=<?= $wod['id'] ?>' data-preview='imgen.php?id=<?= $wod['id'] ?>'>
                                     <td><?= $wod['id']; ?></td>
                                     <td class="text-nowrap"><?= $wod['created']; ?></td>
                                     <td class="break"><?= $wod['designation']; ?></td>
                                     <td class="break"><?= $wod['description']; ?></td>
                                     <td><?= $wod['permalink']; ?></td>
-                                    <td>
-                                        <a href="/<?php echo ROOT_FOLDER ?>/admin/edit/wod.php?wod=<?php echo $wod['id']; ?>">
-                                            <i class="fas fa-pencil-alt"></i>
-                                        </a>
-                                        <a class="ms-2" href="/<?php echo ROOT_FOLDER ?>/admin/imgen.php?id=<?php echo $wod['id']; ?>">
-                                            <i class="fa-solid fa-camera"></i>
-                                        </a>
-                                    </td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -151,24 +142,18 @@ function printMenuBar($editUrl)
                 <!-- Equipment -->
                 <div class="tab-pane fade" id="equipment" role="tabpanel" aria-labelledby="equipment-tab">
                     <?php printMenuBar("./edit/equipment.php") ?>
-                    <table class="table">
+                    <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Display Name</th>
-                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($equipment as $eq) : ?>
-                                <tr>
+                                <tr data-edit='edit/equipment.php?eq=<?= $eq['id'] ?>'>
                                     <td><?= $eq['id']; ?></td>
                                     <td><?= $eq['displayname']; ?></td>
-                                    <td>
-                                        <a href="/<?php echo ROOT_FOLDER ?>/admin/edit/equipment.php?eq=<?php echo $eq['id']; ?>">
-                                            <i class="fas fa-pencil-alt"></i>
-                                        </a>
-                                    </td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -177,17 +162,16 @@ function printMenuBar($editUrl)
                 <!-- Movement -->
                 <div class="tab-pane fade" id="movement" role="tabpanel" aria-labelledby="movement-tab">
                     <?php printMenuBar("./edit/movement.php") ?>
-                    <table class="table">
+                    <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Display Name</th>
-                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($movements as $move) : ?>
-                                <tr>
+                                <tr data-edit='edit/movement.php?move=<?= $move['id'] ?>'>
                                     <td><?= $move['id']; ?></td>
                                     <td><?= $move['displayname']; ?></td>
                                     <td>
@@ -203,24 +187,18 @@ function printMenuBar($editUrl)
                 <!-- Tags -->
                 <div class="tab-pane fade" id="tags" role="tabpanel" aria-labelledby="tags-tab">
                     <?php printMenuBar("./edit/tag.php") ?>
-                    <table class="table">
+                    <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Designation</th>
-                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($tags as $tag) : ?>
-                                <tr>
+                                <tr data-edit='edit/tag.php?tag=<?= $tag['id'] ?>'>
                                     <td><?= $tag['id']; ?></td>
                                     <td><?= $tag['designation']; ?></td>
-                                    <td>
-                                        <a href="/<?php echo ROOT_FOLDER ?>/admin/edit/tag.php?tag=<?php echo $tag['id']; ?>">
-                                            <i class="fas fa-pencil-alt"></i>
-                                        </a>
-                                    </td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -228,8 +206,22 @@ function printMenuBar($editUrl)
                 </div>
             </div>
         </div>
+        
     </div>
+
+    <div class="hover-menu-container d-none">
+            <button id="overlay-edit" class="btn btn-link text-dark">
+                <i class="fa fa-fw fa-4x fa-pencil"></i>
+            </button>
+            <button id="overlay-imgen" class="btn btn-link text-dark">
+                <i class="fa fa-fw fa-4x fa-camera"></i>
+            </button>
+            <button id="overlay-hide" class="btn btn-link text-dark">
+                <i class="fa fa-fw fa-4x fa-times"></i>
+            </button>
+        </div>
     <?php include('./shared/footer.inc.php'); ?>
+    <script src="<?php echo $root . '/js/index.js' ?>"></script>
 </body>
 
 </html>
