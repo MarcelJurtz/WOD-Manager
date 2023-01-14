@@ -76,9 +76,9 @@ $stmt->close();
 
 <?php include('./../shared/head.inc.php') ?>
 
-<body class="loggedin">
+<body class="loggedin d-flex flex-column h-100">
     <?php include('./../shared/menu.inc.php'); ?>
-    <div class="container card mt-3">
+    <div class="container card mt-3 flex-grow-1 overflow-auto">
         <form action="./../save/wod.php" method="post">
             <input type="hidden" name="id" value="<?= $id ?>">
 
@@ -87,6 +87,7 @@ $stmt->close();
                     <div class="d-flex justify-content-between border-bottom py-3 mb-3">
                         <h2><?= isset($designation) ? $designation : "New Workout" ?></h2>
                         <div>
+                            <a class="btn btn-outline-primary" href="./../imgen.php?id=<?= $id ?>"><i class="fa fa-fw fa-camera"></i> Export</a>
                             <a class="btn btn-outline-danger" href="./../index.php">Cancel</a>
                             <input class="btn btn-outline-success" type="submit" value="Save">
                         </div>
