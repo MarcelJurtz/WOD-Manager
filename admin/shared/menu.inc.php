@@ -4,7 +4,7 @@ $root = '/workouts/admin';
 
 <nav class="navtop ">
     <div class="desktop py-3 d-none d-lg-flex">
-        <h1 class="text-light"><a class="text-reset text-decoration-none h2" href="./index.php">WOD Manager - Admin</a></h1>
+        <h1 class="text-light"><a class="text-reset text-decoration-none h2" href="<?php echo $root .  '/index.php' ?>">WOD Manager - Admin</a></h1>
         <a href="<?php echo $root .  '/index.php' ?>"><i class="fas fa-fw fa-database"></i>WODs</a>
         <a href="<?php echo $root .  '/imgen.php' ?>"><i class="fas fa-fw fa-camera"></i>Random</a>
         <a href="<?php echo $root .  '/logs.php' ?>"><i class="fas fa-fw fa-database"></i>Logs</a>
