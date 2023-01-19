@@ -12,7 +12,7 @@ $root = '/workouts/admin';
         <a href="<?php echo $root .  '/logout.php' ?>"><i class="fas fa-fw fa-user-circle"></i>Logout</a>
     </div>
     <div class="mobile mx-3 py-3 d-flex align-items-center d-xl-none d-lg-none h-100">
-        <h1 class="text-light"><a class="text-reset text-decoration-none h2" href="./index.php">WOD Manager - Admin</a></h1>
+        <h1 class="text-light"><a class="text-reset text-decoration-none h2" href="<?php echo $root .  '/index.php' ?>">WOD Manager - Admin</a></h1>
         <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
             <i class="fa-solid fa-bars fa-2x text-light"></i>
         </button>
