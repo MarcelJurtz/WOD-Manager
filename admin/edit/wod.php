@@ -116,36 +116,43 @@ $stmt->close();
                 <div class="col-12 col-md-6">
                     <h3>Movements</h3>
                     <div class="mb-3 checklist-container">
-                        <?php foreach ($movements as $move) : ?>
-                            <?php
-                            $checked = $move['selected'] ? "checked" : "";
-                            echo "<input type='checkbox' name='movement[]' value='" . $move['id'] . "' " . $checked . "> " . $move['displayname'] . "<br>";
-                            ?>
-                        <?php endforeach; ?>
+                        <?php 
+                            foreach ($movements as $move) : 
+                                checkListBox('movement', $move['id'], $move['displayname'], $move['selected'] ? "checked" : "" );
+                            endforeach; 
+                        ?>
                     </div>
                     <h3>Equipment</h3>
                     <div class="mb-3 checklist-container">
-                        <?php foreach ($equipment as $eq) : ?>
-                            <?php
-                            $checked = $eq['selected'] ? "checked" : "";
-                            echo "<input type='checkbox' name='equipment[]' value='" . $eq['id'] . "' " . $checked . "> " . $eq['displayname'] . "<br>";
-                            ?>
-                        <?php endforeach; ?>
+                        <?php 
+                            foreach ($equipment as $eq) : 
+                                checkListBox('equipment', $eq['id'], $eq['displayname'], $eq['selected'] ? "checked" : "" );
+                            endforeach; 
+                        ?>
                     </div>
                     <h3>Tags</h3>
                     <div class="mb-3 checklist-container">
-                        <?php foreach ($tags as $tag) : ?>
-                            <?php
-                            $checked = $tag['selected'] ? "checked" : "";
-                            echo "<input type='checkbox' name='tags[]' value='" . $tag['id'] . "' " . $checked . "> " . $tag['designation'] . "<br>";
-                            ?>
-                        <?php endforeach; ?>
+                        <?php 
+                            foreach ($tags as $tag) : 
+                                checkListBox('tags', $tag['id'], $tag['designation'], $tag['selected'] ? "checked" : "" );
+                            endforeach; 
+                        ?>
                     </div>
                 </div>
             </div>
         </form>
     </div>
     <?php include('./../shared/footer.inc.php'); ?>
+    <script src="./../../assets/js/wod.js"></script>
 </body>
 
 </html>
+
+<?php
+    function checkListBox($name, $value, $label, $checked) {
+        echo '<div class="checklist-item">
+                <input type="checkbox" name="' . $name . '[]" value="' . $value . '"' . $checked . '>
+                <span class="ms-2 label">' . $label . '</span>
+            </div>';
+    }
+?>

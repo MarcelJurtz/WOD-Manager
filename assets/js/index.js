@@ -4,7 +4,6 @@ let btnPreview = document.getElementById('overlay-imgen');
 let context = null;
 let scrollPos = 0;
 
-
 document.querySelectorAll('.hover-menu table tr')
     .forEach(e => e.addEventListener("click", (e) => {
         // Here, `this` refers to the element the event was hooked on
