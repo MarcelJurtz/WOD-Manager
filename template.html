@@ -1,0 +1,71 @@
+
+
+<div class="step-container border p-3" data-step=" [[ ID ]] ">
+    <div class="d-flex justify-content-between"><h4>Schritt [[ ID + 1 ]]</h4>
+        <button type="button" role="button" onclick="remove_step([[ ID ]])" class="me-3 btn btn-outline-danger">
+            <i class="fas fa-fw fa-xmark"></i>
+        </button>
+    </div>
+    <div class="d-flex gap-1">
+        <div class="flex-grow-1">
+            <h5>Movements</h5>
+            <div class="mb-3 checklist-container">
+
+                foreach
+
+                    <div class="checklist-item">
+                        <input type="checkbox" name="movement[]" value="[[ ID ]]">
+                        <span class="ms-2 label">[[ DISPLAYNAME ]]</span>
+                    </div>
+
+                endforeach
+
+        </div>
+        </div>
+        <div class="flex-grow-1">
+            <h5>Equipment</h5>
+            <div class="mb-3 checklist-container">'
+
+                foreach
+
+                    <div class="checklist-item">
+                        <input type="checkbox" name="equipment[]" value="[[ ID ]]">
+                        <span class="ms-2 label">[[ DISPLAYNAME ]]</span>
+                    </div>
+
+                endforeach
+
+            </div>
+        </div>
+    </div>
+    <div class="mb-3">
+        <div class="d-flex justify-content-between">
+            <h5 class="w-100">Weights</h5>
+            <select name="weight-unit" class="form-select" aria-label="Weight Unit">
+                <option selected>Nothing selected</option>
+                <option value="1">Kilograms</option>
+                <option value="2">Pounds</option>
+                <option value="3">% Bodyweight</option>
+                <option value="4">Pood</option>
+            </select>
+        </div>
+        <div class="my-3 d-flex gap-1">
+            <div>
+                <label for="weight_rx_male" class="form-label">RX ♂</label>
+                <input type="number" class="form-control" id="weight_rx_male" name="weight_rx_male" value="[[ ID ]]['weight_rx_male']">
+            </div>
+            <div>
+                <label for="weight_rx_female" class="form-label">RX ♀</label>
+                <input type="number" class="form-control" id="weight_rx_female" name="weight_rx_female" value="[[ ID ]]['weight_rx_female']">
+            </div>
+            <div>
+                <label for="weight_rx_female" class="form-label">SC ♂</label>
+                <input type="number" class="form-control" id="weight_rx_female" name="weight_rx_female" value="[[ ID ]]['weight_sc_male']">
+            </div>
+            <div>
+                <label for="weight_sc_female" class="form-label">SC ♀</label>
+                <input type="number" class="form-control" id="weight_sc_female" name="weight_sc_female" value="[[ ID ]]['weight_sc_female']">
+            </div>
+        </div>
+    </div>
+</div>

@@ -24,7 +24,7 @@ class CheckboxContainer {
     sortCheckboxes = () => {
         let childNodes = Array.from(this.children);
 
-        childNodes.sort(function(a, b) {
+        childNodes.sort(function (a, b) {
 
             if (a.checked && !b.checked) {
                 return -1;
@@ -46,6 +46,22 @@ class CheckboxContainer {
             this.element.appendChild(checkbox.element);
         }
     }
+}
+
+let remove_weight = id => document.querySelector('.weight-container[data-weight="' + id + '"]').remove();
+
+let add_weight = function () {
+    let template = '';
+
+    let container = document.getElementById("weights");
+    container.appendChild(htmlToElement(template));
+}
+
+let htmlToElement = function (html) {
+    var template = document.createElement('template');
+    html = html.trim(); // Never return a text node of whitespace as the result
+    template.innerHTML = html;
+    return template.content.firstChild;
 }
 
 let containerElems = document.querySelectorAll('.checklist-container');
