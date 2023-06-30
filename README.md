@@ -40,4 +40,4 @@ TBC, more of a note to myself.
 * DOMS - delayed onset muscle soreness
 * BW - bodyweight
 * YGIG - you go i go
-* 
+* Chipper
