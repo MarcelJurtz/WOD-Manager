@@ -69,7 +69,12 @@ $uniqueHashtags = array_slice($uniqueHashtags, 0, HASHTAG_TOTAL_COUNT);
 
 //$hashtags = getHashtagString($wod["keywords"]) . ' ' . getRandomDefaultHashtags();
 $prefix = "";
-$keyword =  $_GET["keyword"] ?: "crossfit";
+$keyword = "crossfit";
+
+if (isset($_GET["keyword"])) {
+  $keyword = $_GET["keyword"];
+}
+
 // TODO Move to config, add hashtags back to logic and base off of exercises
 $suffix = "Follow @Wodai.ly on Instagram for more workouts!";
 $src = "Background-images are from unsplash.com";
@@ -118,19 +123,16 @@ function linebreak($text)
       </div>
 
       <!-- Menu -->
-      <div class="row">
-        <div class="card mb-3">
-          <div class="card-body">
-            <a href="JavaScript:Void(0);" title="Copy Caption" id="copy" class="btn btn-outline-secondary text-decoration-none">
-              <span id="btn-copy-init">Copy Text <?php echo ICON_CLIPBOARD ?></span>
-              <span id="btn-copy-copied" class="d-none">Copied! <?php echo ICON_CHECK ?></span>
-            </a>
-
-            <div class="input-group mb-3">
-              <input id="txt-keyword" type="text" class="form-control" placeholder="Search Keyword" aria-label="Search Keyword" aria-describedby="replace-bg" value="<?php echo $keyword ?>">
-              <button class="btn btn-outline-secondary" type="button" id="replace-bg">Replace BG</button>
-            </div>
+      <div class="row mb-3">
+        <div class="d-flex flex-row gap-2">
+          <div class="input-group">
+            <input id="txt-keyword" type="text" class="form-control" placeholder="Search Keyword" aria-label="Search Keyword" aria-describedby="replace-bg" value="<?php echo $keyword ?>">
+            <button class="btn btn-outline-secondary" type="button" id="replace-bg">Replace BG</button>
           </div>
+          <button title="Copy Caption" id="copy" class="btn btn-outline-secondary text-decoration-none text-nowrap">
+            <span id="btn-copy-init">Copy Text <?php echo ICON_CLIPBOARD ?></span>
+            <span id="btn-copy-copied" class="d-none">Copied! <?php echo ICON_CHECK ?></span>
+            </a>
         </div>
       </div>
 
