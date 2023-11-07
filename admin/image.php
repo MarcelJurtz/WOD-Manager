@@ -2,8 +2,10 @@
 
 include("./shared/tools.inc.php");
 
+$keyword = $_GET['keyword'];
+
 // Fetch actual image url returned via 302
-$url="https://source.unsplash.com/random/1080x1080/?crossfit";
+$url = "https://source.unsplash.com/random/1080x1080/?" . $keyword;
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, $url);
 curl_setopt($ch, CURLOPT_HEADER, true);
@@ -17,7 +19,7 @@ curl_close($ch);
 
 // Download Image
 $ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, $url); 
+curl_setopt($ch, CURLOPT_URL, $url);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // good edit, thanks!
 curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1); // also, this seems wise considering output is image.
 $data = curl_exec($ch);
@@ -44,7 +46,7 @@ $font_path = $_SERVER['DOCUMENT_ROOT'] . '/workouts/assets/fonts/' . $fontx;
 // Configure image content
 $description =  wordwrap($_GET["description"], 38, "\n"); // Why?
 $title = $_GET["designation"];
-$excercises = str_replace(", ",",\n", $_GET["exercises"]);
+$excercises = str_replace(", ", ",\n", $_GET["exercises"]);
 $user = "@Wodai.ly";
 
 // echo $description;

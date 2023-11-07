@@ -58,7 +58,7 @@ $stmt->fetch();
 $stmt->close();
 
 // Filter hashtags
-if(HASHTAGS_USE_DEFAULTS) {
+if (HASHTAGS_USE_DEFAULTS) {
   $hashtags .= ', ' . DEFAULT_HASHTAGS;
 }
 
@@ -69,6 +69,7 @@ $uniqueHashtags = array_slice($uniqueHashtags, 0, HASHTAG_TOTAL_COUNT);
 
 //$hashtags = getHashtagString($wod["keywords"]) . ' ' . getRandomDefaultHashtags();
 $prefix = "";
+$keyword =  $_GET["keyword"] ?: "crossfit";
 // TODO Move to config, add hashtags back to logic and base off of exercises
 $suffix = "Follow @Wodai.ly on Instagram for more workouts!";
 $src = "Background-images are from unsplash.com";
@@ -77,6 +78,7 @@ $params = '?wod=' . $permalink;
 $params .= '&designation=' . $designation;
 $params .= '&description=' . $description;
 $params .= '&exercises=' . $exercises;
+$params .= '&keyword=' . $keyword;
 $img_url = 'image.php' . $params;
 
 
@@ -109,12 +111,24 @@ function linebreak($text)
           <div class="d-md-flex justify-content-between border-bottom mb-3 pb-3">
             <h2 class="card-title">Image-Generator</h2>
             <div>
-              <a href="JavaScript:Void(0);" title="Copy Caption" id="copy" class="btn btn-outline-secondary text-decoration-none">
-                <span id="btn-copy-init">Copy Text <?php echo ICON_CLIPBOARD ?></span>
-                <span id="btn-copy-copied" class="d-none">Copied! <?php echo ICON_CHECK ?></span>
-              </a>
               <button class="btn btn-outline-primary" id="get-random">Other WOD</button>
-              <button class="btn btn-outline-secondary" id="replace-bg">Replace BG</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Menu -->
+      <div class="row">
+        <div class="card mb-3">
+          <div class="card-body">
+            <a href="JavaScript:Void(0);" title="Copy Caption" id="copy" class="btn btn-outline-secondary text-decoration-none">
+              <span id="btn-copy-init">Copy Text <?php echo ICON_CLIPBOARD ?></span>
+              <span id="btn-copy-copied" class="d-none">Copied! <?php echo ICON_CHECK ?></span>
+            </a>
+
+            <div class="input-group mb-3">
+              <input id="txt-keyword" type="text" class="form-control" placeholder="Search Keyword" aria-label="Search Keyword" aria-describedby="replace-bg" value="<?php echo $keyword ?>">
+              <button class="btn btn-outline-secondary" type="button" id="replace-bg">Replace BG</button>
             </div>
           </div>
         </div>
