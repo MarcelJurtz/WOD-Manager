@@ -1,10 +1,11 @@
 <?php
 
-class WodWeight
+class WodStep
 {
     public int $id;
     public int $wodId;
     public int $equipmentId;
+    public int $movementId;
 
     public WeightGender $weightGender;
     public string $weightFactor;

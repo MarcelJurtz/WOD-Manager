@@ -121,7 +121,7 @@ function printMenuBar($editUrl)
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Designation</th>
-                                <th scope="col">Description</th>
+                                <th scope="col" class="d-none d-lg-block">Description</th>
                                 <th scope="col">Permalink</th>
                                 <th class="d-none d-lg-block" scope="col">Created</th>
                             </tr>
@@ -131,7 +131,7 @@ function printMenuBar($editUrl)
                                 <tr data-edit='edit/wod.php?wod=<?= $wod['id'] ?>' data-preview='imgen.php?id=<?= $wod['id'] ?>'>
                                     <td><?= $wod['id']; ?></td>
                                     <td class="break"><?= $wod['designation']; ?></td>
-                                    <td class="break"><?= $wod['description']; ?></td>
+                                    <td class="break d-none d-lg-block"><?= $wod['description']; ?></td>
                                     <td><?= $wod['permalink']; ?></td>
                                     <td class="text-nowrap d-none d-lg-block"><?= $wod['created']; ?></td>
                                 </tr>
@@ -201,20 +201,20 @@ function printMenuBar($editUrl)
                 </div>
             </div>
         </div>
-        
+
     </div>
 
     <div class="hover-menu-container d-none">
-            <button id="overlay-edit" class="btn btn-link text-dark">
-                <i class="fa fa-fw fa-4x fa-pencil"></i>
-            </button>
-            <button id="overlay-imgen" class="btn btn-link text-dark">
-                <i class="fa fa-fw fa-4x fa-camera"></i>
-            </button>
-            <button id="overlay-hide" class="btn btn-link text-dark">
-                <i class="fa fa-fw fa-4x fa-times"></i>
-            </button>
-        </div>
+        <button id="overlay-edit" class="btn btn-link text-dark">
+            <i class="fa fa-fw fa-4x fa-pencil"></i>
+        </button>
+        <button id="overlay-imgen" class="btn btn-link text-dark">
+            <i class="fa fa-fw fa-4x fa-camera"></i>
+        </button>
+        <button id="overlay-hide" class="btn btn-link text-dark">
+            <i class="fa fa-fw fa-4x fa-times"></i>
+        </button>
+    </div>
     <?php include('./shared/footer.inc.php'); ?>
     <script src="<?php echo $root . '/js/index.js' ?>"></script>
 </body>
