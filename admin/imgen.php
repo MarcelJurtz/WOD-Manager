@@ -13,15 +13,22 @@ require_once('./shared/icons.inc.php');
 $con = getConnection();
 
 if (isset($_GET['id'])) {
-  $stmt = $con->prepare('SELECT id, designation, description, exercises, permalink FROM wod WHERE id = ?');
+  $stmt = $con->prepare('SELECT id, designation, description, notes, exercises, permalink FROM wod WHERE id = ?');
   $stmt->bind_param('i', $_GET['id']);
 } else {
-  $query = 'SELECT id, designation, description, exercises, permalink FROM wod ORDER BY RAND() LIMIT 1';
+  $query = 'SELECT id, designation, description, notes, exercises, permalink FROM wod ORDER BY RAND() LIMIT 1';
   $stmt = $con->prepare($query);
 }
 
 $stmt->execute();
-$stmt->bind_result($id, $designation, $description, $exercises, $permalink);
+$stmt->bind_result($id, $designation, $description, $notes, $exercises, $permalink);
+$stmt->fetch();
+$stmt->close();
+
+$query = 'SELECT value FROM setting WHERE SystemName = \'' . CONFIG_KEY_UNSPLASH_API_ACCESSKEY . '\' LIMIT 1';
+$stmt = $con->prepare($query);
+$stmt->execute();
+$stmt->bind_result($apiToken);
 $stmt->fetch();
 $stmt->close();
 
@@ -98,6 +105,12 @@ function linebreak($text)
   return str_replace(',', ',&#013;&#010;', $text);
 }
 
+function linebreakJs($text)
+{
+  $text = str_replace(', ', ',', $text); // trim
+  return str_replace(',', '\n\n', $text);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -138,10 +151,9 @@ function linebreak($text)
 
       <div class="row">
         <div class="d-flex">
-          <img id="preview" src="<?php echo $img_url; ?>" class="bg-white rounded-0" style=" background:url(/workouts/assets/img/preview.gif) center/50% no-repeat; " width="450" height="450" alt="image with workout instructions">
+          <img id="preview" class="bg-white rounded-0" style=" background:url(/workouts/assets/img/preview.gif) center/50% no-repeat; " width="450" height="450" alt="image with workout instructions">
           <textarea id="details" class="form-control" rows="8" data-permalink="<?php echo $permalink ?>">
-              <?php echo $prefix . $description . ":\n\n" . linebreak($exercises) . "\n\n" . $suffix . "\n\n" . implode(' ', $uniqueHashtags) . "\n\n" . $src ?>
-            </textarea>
+          </textarea>
         </div>
       </div>
     </div>
@@ -155,5 +167,82 @@ function linebreak($text)
 
 </html>
 </body>
+<script>
+
+  let apiToken = "<?php echo $apiToken ?>";
+  let img = document.getElementById("preview");
+
+  let txtKeyword = document.getElementById("txt-keyword");
+  let txtDetails = document.getElementById("details");
+
+  let prefix = <?php echo json_encode($prefix); ?>;
+  if(prefix) prefix += "\n\n";
+
+  let description = <?php echo json_encode($description); ?>;
+  let exerciseStr = <?php echo json_encode($exercises); ?>;
+  let notes = <?php echo json_encode($notes); ?>;
+  let suffix = <?php echo json_encode($suffix); ?>;
+  let hashtags = <?php echo json_encode(implode(' ', $uniqueHashtags)); ?>;
+
+  let formattedExercises = exerciseStr.split(',')
+    .map(exercise => "- " + exercise.trim())
+    .join("\n");
+
+  let details = prefix + description + "\n\n" + formattedExercises;
+  
+  if(notes) {
+    details += "\n\n" + notes;
+  }
+
+  if(suffix) {
+    details += "\n\n" + suffix;
+  }
+
+  if(hashtags) {
+    details += "\n\n" + hashtags;
+  }
+
+  // let details = <?php echo json_encode($prefix . $description . ":\n\n" . linebreakJs($exercises) . "\n\n" . $notes . "\n\n" . $suffix . "\n\n" . implode(' ', $uniqueHashtags) . "\n\n") ?>;
+
+  let fetchImageData = () => {
+
+    img.src = null;
+
+    let imgUrl = "<?php echo $img_url ?>";
+    let keyword = txtKeyword.value;
+    let target = "https://api.unsplash.com/photos/random?client_id=" + apiToken + "&query=" + keyword;
+
+    fetch(target)
+      .then( response => response.json())
+      .then(json => {
+
+        imgUrl += "&source=" + json.urls.regular;
+        imgUrl = imgUrl.replace(/\s/g, "%20");
+        console.log(imgUrl);
+        img.src = imgUrl;
+
+        txtDetails.value = details + "\n\nImage from Unsplash.com by " + json.user.name;
+      });
+  }
+
+  let copyWod = () => {
+    navigator.clipboard.writeText(txtDetails.value).then(function () {
+        btnCopyTextInit.classList.add("d-none");
+        btnCopyTextCopied.classList.remove("d-none");
+        setTimeout(function () {
+            btnCopyTextInit.classList.remove("d-none");
+            btnCopyTextCopied.classList.add("d-none");
+        }, 1500);
+    }, function (err) {
+        console.error('Async: Could not copy text: ', err);
+    });
+  }
+
+  fetchImageData();
+
+  document.getElementById("replace-bg").addEventListener("click", fetchImageData);
+  document.getElementById("copy").addEventListener("click", copyWod);
+
+</script>
 
 </html>

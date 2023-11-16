@@ -4,15 +4,16 @@ $root = '/workouts/admin';
 
 <nav class="navtop ">
     <div class="desktop py-3 d-none d-lg-flex">
-        <h1 class="text-light"><a class="text-reset text-decoration-none h2" href="<?php echo $root .  '/index.php' ?>">WOD Manager - Admin</a></h1>
+        <h1 class="text-light"><a class="text-reset text-decoration-none h2" href="<?php echo $root .  '/index.php' ?>">Admin</a></h1>
         <a href="<?php echo $root .  '/index.php' ?>"><i class="fas fa-fw fa-database"></i>WODs</a>
         <a href="<?php echo $root .  '/imgen.php' ?>"><i class="fas fa-fw fa-camera"></i>Random</a>
         <a href="<?php echo $root .  '/logs.php' ?>"><i class="fas fa-fw fa-database"></i>Logs</a>
         <a href="<?php echo $root .  '/profile.php' ?>"><i class="fas fa-fw fa-user-circle"></i>Profile</a>
+        <a href="<?php echo $root .  '/settings.php' ?>"><i class="fas fa-fw fa-cog"></i>Settings</a>
         <a href="<?php echo $root .  '/logout.php' ?>"><i class="fas fa-fw fa-user-circle"></i>Logout</a>
     </div>
     <div class="mobile mx-3 py-3 d-flex align-items-center d-xl-none d-lg-none h-100">
-        <h1 class="text-light"><a class="text-reset text-decoration-none h2" href="<?php echo $root .  '/index.php' ?>">WOD Manager - Admin</a></h1>
+        <h1 class="text-light"><a class="text-reset text-decoration-none h2" href="<?php echo $root .  '/index.php' ?>">Admin</a></h1>
         <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
             <i class="fa-solid fa-bars fa-2x text-light"></i>
         </button>

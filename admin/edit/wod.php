@@ -9,10 +9,10 @@ if (!isset($_SESSION['loggedin'])) {
 require_once('./../shared/db.php');
 $con = getConnection();
 
-$stmt = $con->prepare('SELECT id, designation, description, exercises, hashtags FROM wod WHERE id = ?');
+$stmt = $con->prepare('SELECT id, designation, description, notes, exercises, hashtags FROM wod WHERE id = ?');
 $stmt->bind_param('i', $_GET["wod"]);
 $stmt->execute();
-$stmt->bind_result($id, $designation, $description, $exercises, $hashtags);
+$stmt->bind_result($id, $designation, $description, $notes, $exercises, $hashtags);
 $stmt->fetch();
 $stmt->close();
 
@@ -109,6 +109,10 @@ $stmt->close();
                         <input type="text" class="form-control" id="exercises" name="exercises" placeholder="Exercise 1, Exercise 2, ..." value="<?= $exercises ?>" required">
                     </div>
                     <div class="mb-3">
+                        <label for="notes" class="form-label">Notes</label>
+                        <textarea class="form-control" id="notes" name="notes" rows="3"><?= $notes ?></textarea>
+                    </div>
+                    <div class="mb-3">
                         <label for="hashtags" class="form-label">Hashtags</label>
                         <textarea class="form-control" id="hashtags" name="hashtags" rows="3"><?= $hashtags ?></textarea>
                     </div>
@@ -116,26 +120,26 @@ $stmt->close();
                 <div class="col-12 col-md-6">
                     <h3>Movements</h3>
                     <div class="mb-3 checklist-container">
-                        <?php 
-                            foreach ($movements as $move) : 
-                                checkListBox('movement', $move['id'], $move['displayname'], $move['selected'] ? "checked" : "" );
-                            endforeach; 
+                        <?php
+                        foreach ($movements as $move) :
+                            checkListBox('movement', $move['id'], $move['displayname'], $move['selected'] ? "checked" : "");
+                        endforeach;
                         ?>
                     </div>
                     <h3>Equipment</h3>
                     <div class="mb-3 checklist-container">
-                        <?php 
-                            foreach ($equipment as $eq) : 
-                                checkListBox('equipment', $eq['id'], $eq['displayname'], $eq['selected'] ? "checked" : "" );
-                            endforeach; 
+                        <?php
+                        foreach ($equipment as $eq) :
+                            checkListBox('equipment', $eq['id'], $eq['displayname'], $eq['selected'] ? "checked" : "");
+                        endforeach;
                         ?>
                     </div>
                     <h3>Tags</h3>
                     <div class="mb-3 checklist-container">
-                        <?php 
-                            foreach ($tags as $tag) : 
-                                checkListBox('tags', $tag['id'], $tag['designation'], $tag['selected'] ? "checked" : "" );
-                            endforeach; 
+                        <?php
+                        foreach ($tags as $tag) :
+                            checkListBox('tags', $tag['id'], $tag['designation'], $tag['selected'] ? "checked" : "");
+                        endforeach;
                         ?>
                     </div>
                 </div>
@@ -149,10 +153,11 @@ $stmt->close();
 </html>
 
 <?php
-    function checkListBox($name, $value, $label, $checked) {
-        echo '<div class="checklist-item">
+function checkListBox($name, $value, $label, $checked)
+{
+    echo '<div class="checklist-item">
                 <input type="checkbox" name="' . $name . '[]" value="' . $value . '"' . $checked . '>
                 <span class="ms-2 label">' . $label . '</span>
             </div>';
-    }
+}
 ?>

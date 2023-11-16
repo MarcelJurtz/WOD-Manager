@@ -2,30 +2,16 @@
 
 include("./shared/tools.inc.php");
 
+// Enable file_get_contents 
+ini_set("allow_url_fopen", 1);
+
 $keyword = $_GET['keyword'];
+$source = $_GET['source'];
 
-// Fetch actual image url returned via 302
-$url = "https://source.unsplash.com/random/1080x1080/?" . $keyword;
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, $url);
-curl_setopt($ch, CURLOPT_HEADER, true);
-curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // Must be set to true so that PHP follows any "Location:" header
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+// Get resizedd image by adjusting parameters
+$imageUrl = explode('?', $source)[0] . "?h=1080&w=1080&fit=crop";
 
-$a = curl_exec($ch); // $a will contain all headers
-
-$url = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL); // This is what you need, it will return you the last effective URL
-curl_close($ch);
-
-// Download Image
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, $url);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // good edit, thanks!
-curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1); // also, this seems wise considering output is image.
-$data = curl_exec($ch);
-curl_close($ch);
-
-$img = imagecreatefromstring($data);
+$img = imagecreatefromstring(file_get_contents($imageUrl));
 
 $fontx = "permanent-marker-v16-latin-regular.ttf";
 $font_path = $_SERVER['DOCUMENT_ROOT'] . '/workouts/assets/fonts/' . $fontx;
