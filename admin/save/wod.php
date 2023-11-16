@@ -20,16 +20,16 @@ if($_POST['id'] > 0) {
 	// No Update!
 	//$permalink = strtoupper(substr(sha1($_POST["designation"] . $_POST["description"] . $_POST["exercises"]),0,8));
 
-	$stmt = $con->prepare('UPDATE wod SET designation = ?, description = ?, exercises = ?, hashtags = ? WHERE id = ?');
-	$stmt->bind_param('ssssi', $_POST["designation"], $_POST["description"], $_POST["exercises"], $_POST["hashtags"], $_POST["id"]);
+	$stmt = $con->prepare('UPDATE wod SET designation = ?, description = ?, notes = ?, exercises = ?, hashtags = ? WHERE id = ?');
+	$stmt->bind_param('sssssi', $_POST["designation"], $_POST["description"], $_POST["notes"], $_POST["exercises"], $_POST["hashtags"], $_POST["id"]);
 	$status = $stmt->execute();
 	$stmt->close();
 } else {
 
 	// Generate permalink only once to prevent breaking from later changes
 	$permalink = strtoupper(substr(sha1($_POST["designation"] . $_POST["description"] . $_POST["exercises"]),0,8));
-	$stmt = $con->prepare('INSERT INTO wod (designation, description, exercises, hashtags, permalink) VALUES (?,?,?,?,?)');
-	$stmt->bind_param('sssss', $_POST["designation"], $_POST["description"], $_POST["exercises"], $_POST["hashtags"], $permalink);
+	$stmt = $con->prepare('INSERT INTO wod (designation, description, notes, exercises, hashtags, permalink) VALUES (?,?,?,?,?,?)');
+	$stmt->bind_param('ssssss', $_POST["designation"], $_POST["description"], $_POST["notes"], $_POST["exercises"], $_POST["hashtags"], $permalink);
 	$status = $stmt->execute();
 	$wod = $con->insert_id;
 	$stmt->close();

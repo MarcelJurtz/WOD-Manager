@@ -9,11 +9,6 @@ if (!isset($_SESSION['loggedin'])) {
 require_once('./../shared/db.php');
 $con = getConnection();
 
-print_r($_POST);
-
-print("<br>");
-print("<br>");
-
 foreach($_POST as $key => $value)
 {
 	// TODO Might be enough for reusability
