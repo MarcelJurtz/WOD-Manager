@@ -150,8 +150,8 @@ function linebreakJs($text)
       </div>
 
       <div class="row">
-        <div class="d-flex">
-          <img id="preview" class="bg-white rounded-0" style=" background:url(/workouts/assets/img/preview.gif) center/50% no-repeat; " width="450" height="450" alt="image with workout instructions">
+        <div class="d-flex flex-column flex-md-row">
+          <img id="preview" class="bg-white rounded-0" style=" background:url(/workouts/assets/img/preview.gif) center/50% no-repeat; " alt="image with workout instructions">
           <textarea id="details" class="form-control" rows="8" data-permalink="<?php echo $permalink ?>">
           </textarea>
         </div>
