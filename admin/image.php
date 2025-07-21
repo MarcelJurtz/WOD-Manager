@@ -14,7 +14,7 @@ $imageUrl = explode('?', $source)[0] . "?h=1080&w=1080&fit=crop";
 $img = imagecreatefromstring(file_get_contents($imageUrl));
 
 $fontx = "permanent-marker-v16-latin-regular.ttf";
-$font_path = $_SERVER['DOCUMENT_ROOT'] . '/workouts/assets/fonts/' . $fontx;
+$font_path = $_SERVER['DOCUMENT_ROOT'] . '/' . ROOT_FOLDER . '/assets/fonts/' . $fontx;
 
 // ini_set('display_errors', 1);
 // ini_set('display_startup_errors', 1);

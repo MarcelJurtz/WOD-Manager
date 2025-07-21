@@ -1,5 +1,5 @@
 <?php 
-    $root = '/workouts/assets';
+    $root = '/' . ROOT_FOLDER . '/assets';
 ?>
 
 <div class="container mx-auto small text-center bg-transparent footer" style="max-width:450px;">

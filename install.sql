@@ -85,6 +85,28 @@ CREATE TABLE setting(
   value VARCHAR(500)
 );
 
+CREATE TABLE gym(
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  designation VARCHAR(25),
+  tag VARCHAR(25),
+  enabled TINYINT DEFAULT 0
+);
+
+CREATE TABLE wod_schedule(
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  wod_id INT NOT NULL,
+  gym_id INT NOT NULL,
+  scheduled_date VARCHAR(8) NOT NULL, -- Format: YYYYMMDD (e.g., '20250721')
+  created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  notes VARCHAR(200) DEFAULT NULL, -- Optional notes for this specific date
+  FOREIGN KEY (wod_id) REFERENCES wod(id) ON DELETE CASCADE,
+  FOREIGN KEY (gym_id) REFERENCES gym(id) ON DELETE CASCADE,
+  INDEX idx_scheduled_date (scheduled_date),
+  INDEX idx_gym_date (gym_id, scheduled_date),
+  INDEX idx_wod_gym_date (wod_id, gym_id, scheduled_date),
+  UNIQUE KEY unique_wod_gym_date (wod_id, gym_id, scheduled_date)
+);
+
 INSERT INTO accounts (id, username, password, email) VALUES (1, 'Marcel', '$2y$10$fmvOx4WQeqlDazluko8UPeqQ2b12PZJFmGNY18kN9WPpv2O3mF7km', 'jurtzmarcel@gmail.com');
 
 -- Sample Entry

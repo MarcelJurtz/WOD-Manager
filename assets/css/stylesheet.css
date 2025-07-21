@@ -1,3 +1,7 @@
+:root {
+  --danger: #d66671;
+}
+
 .login {
   width: 400px;
   max-width: 100%;
@@ -161,6 +165,34 @@ table a {
 
 html {
   height: 100%;
+}
+
+.bg-danger {
+  background-color: var(--danger);
+}
+
+.m-1 {
+  margin: 1rem;
+}
+.m-2 {
+  margin: 1.25rem;
+}
+.m-3 {
+  margin: 1.5rem;
+}
+
+.p-1 {
+  padding: 1rem;
+}
+.p-2 {
+  padding: 1.25rem;
+}
+.p-3 {
+  padding: 1.5rem;
+}
+
+.rounded {
+  border-radius: 0.375rem;
 }
 
 /*# sourceMappingURL=stylesheet.css.map */

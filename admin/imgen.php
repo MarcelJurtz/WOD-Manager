@@ -111,6 +111,10 @@ function linebreakJs($text)
   return str_replace(',', '\n\n', $text);
 }
 
+echo "<script>
+  document.addEventListener('DOMContentLoaded',() => { document.getElementById('preview').style.background = 'url(/" . ROOT_FOLDER . "/assets/img/preview.gif) center/50% no-repeat'});
+</script>";
+
 ?>
 
 <!DOCTYPE html>
@@ -151,7 +155,7 @@ function linebreakJs($text)
 
       <div class="row">
         <div class="d-flex flex-column flex-md-row">
-          <img id="preview" class="bg-white rounded-0" style=" background:url(/workouts/assets/img/preview.gif) center/50% no-repeat; " alt="image with workout instructions">
+          <img id="preview" class="bg-white rounded-0" alt="image with workout instructions">
           <textarea id="details" class="form-control" rows="8" data-permalink="<?php echo $permalink ?>">
           </textarea>
         </div>
@@ -161,7 +165,7 @@ function linebreakJs($text)
 
   <!-- END -->
   <?php include('./shared/footer.inc.php'); ?>
-  <script src="/workouts/assets/js/imgen.js"></script>
+  <script src="/<?php echo ROOT_FOLDER ?>/assets/js/imgen.js"></script>
 
 </body>
 

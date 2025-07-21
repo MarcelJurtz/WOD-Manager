@@ -91,5 +91,34 @@ if (isset($_POST['tags'])) {
 	$stmt->close();
 }
 
+// Update scheduled dates
+$stmt = $con->prepare('DELETE FROM wod_schedule WHERE wod_id = ?');
+$stmt->bind_param('i', $wod);
+$status = $stmt->execute();
+$stmt->close();
+
+if (isset($_POST['scheduled_dates']) && is_array($_POST['scheduled_dates'])) {
+	foreach ($_POST['scheduled_dates'] as $index => $date) {
+		if (!empty($date) && isset($_POST['scheduled_gyms'][$index]) && !empty($_POST['scheduled_gyms'][$index])) {
+			$formatted_date = formatDateForStorage($date);
+			$gym_id = $_POST['scheduled_gyms'][$index];
+			$notes = isset($_POST['scheduled_notes'][$index]) ? $_POST['scheduled_notes'][$index] : null;
+			
+			$stmt = $con->prepare('INSERT INTO wod_schedule (wod_id, gym_id, scheduled_date, notes) VALUES (?, ?, ?, ?)');
+			$stmt->bind_param('iiss', $wod, $gym_id, $formatted_date, $notes);
+			$stmt->execute();
+			$stmt->close();
+		}
+	}
+}
+
 header('Location: ./../index.php');
+
+function formatDateForStorage($dateString) {
+    // Convert YYYY-MM-DD to YYYYMMDD format
+    if (strpos($dateString, '-') !== false) {
+        return str_replace('-', '', $dateString);
+    }
+    return $dateString;
+}
 ?>

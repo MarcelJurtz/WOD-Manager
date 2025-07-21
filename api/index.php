@@ -1,6 +1,6 @@
 <?php
 
-    require_once($_SERVER['DOCUMENT_ROOT'] . '/workouts/admin/config.php');
+    require_once($_SERVER['DOCUMENT_ROOT'] . '/' . ROOT_FOLDER . '/admin/config.php');
 
     $con = getConnection();
     $uid = null;

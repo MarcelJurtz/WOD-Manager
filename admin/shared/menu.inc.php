@@ -1,5 +1,5 @@
 <?php
-$root = '/workouts/admin';
+$root = '/' . ROOT_FOLDER . '/admin';
 ?>
 
 <nav class="navtop ">

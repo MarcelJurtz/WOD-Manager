@@ -3,9 +3,9 @@
     define('DB_HOST', 'localhost');
     define('DB_USER', 'root');
     define('DB_PASS', '');
-    define('DB_NAME', 'wods_new');
+    define('DB_NAME', 'workouts');
 
-    define('ROOT_FOLDER', 'workouts');
+    define('ROOT_FOLDER', 'wods');
 
 
     define ('HASHTAGS_USE_DEFAULTS', 1);

@@ -1,5 +1,5 @@
 <?php 
-    $root = '/workouts/assets';
+    $root = '/' . ROOT_FOLDER . '/assets';
 ?>
 
 <head>
